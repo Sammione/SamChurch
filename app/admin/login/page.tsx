@@ -5,14 +5,37 @@ import { useState } from "react";
 
 export default function AdminLoginPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulation of login
-        setTimeout(() => {
-            window.location.href = "/admin/dashboard";
-        }, 1500);
+        setError("");
+
+        // Get form data
+        const form = e.target as HTMLFormElement;
+        const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+        const password = (form.elements.namedItem('password') as HTMLInputElement).value;
+
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                window.location.href = "/admin/dashboard";
+            } else {
+                setError(data.error || "Login failed");
+                setIsLoading(false);
+            }
+        } catch (err) {
+            setError("Something went wrong. Please try again.");
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -51,6 +74,7 @@ export default function AdminLoginPage() {
                                 <label className="text-xs font-bold uppercase tracking-widest text-primary ml-1">Email Address</label>
                                 <input
                                     type="email"
+                                    name="email"
                                     required
                                     placeholder="admin@truthdefender.org"
                                     className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:border-secondary focus:bg-white transition-all text-sm"
@@ -63,6 +87,7 @@ export default function AdminLoginPage() {
                                 </div>
                                 <input
                                     type="password"
+                                    name="password"
                                     required
                                     placeholder="••••••••"
                                     className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:border-secondary focus:bg-white transition-all text-sm"
@@ -84,6 +109,11 @@ export default function AdminLoginPage() {
                                 </>
                             )}
                         </button>
+                        {error && (
+                            <div className="text-red-500 text-sm text-center font-bold animate-pulse">
+                                {error}
+                            </div>
+                        )}
                     </form>
 
                     <div className="pt-12 text-center">
