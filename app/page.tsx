@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Hero from "./components/Hero";
 import ResourceCards from "./components/ResourceCards";
 
@@ -59,7 +60,8 @@ export default function Home() {
               <p>“Lives are transformed by the living Word of God.”</p>
             </div>
             <div className="pt-4">
-              <button className="btn-primary">Our Statement of Faith</button>
+              {/* Placeholder for Statement of Faith - could link to a new page in future */}
+              <button className="btn-primary cursor-not-allowed opacity-80" disabled>Our Statement of Faith</button>
             </div>
           </div>
         </div>
@@ -134,19 +136,19 @@ export default function Home() {
                 <div className="p-6 space-y-3">
                   <p className="text-sm text-text-light">{teaching.date}</p>
                   <h3 className="text-xl font-serif font-bold group-hover:text-secondary transition-colors">{teaching.title}</h3>
-                  <button className="text-secondary font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
+                  <Link href="/audio" className="text-secondary font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
                     Listen Now
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="text-center mt-12">
-            <button className="btn-outline">View All Teachings</button>
+            <Link href="/audio" className="btn-outline inline-block">View All Teachings</Link>
           </div>
         </div>
       </section>
@@ -218,7 +220,7 @@ export default function Home() {
                 Latest Issue
               </div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight">
-              Defender of Truth Magazine <span className="text-secondary">2026</span>
+                Defender of Truth Magazine <span className="text-secondary">2026</span>
               </h2>
               <p className="text-lg text-text-light leading-relaxed">
                 This edition is dedicated to thoughtful examination of Scripture, presenting structured studies and reflections designed to strengthen understanding and encourage discernment through the Word of God.
@@ -239,8 +241,8 @@ export default function Home() {
                 ))}
               </ul>
               <div className="flex gap-4">
-                <button className="btn-primary">Read Now</button>
-                <button className="btn-outline">Download PDF</button>
+                <Link href="/magazines" className="btn-primary inline-block">Read Now</Link>
+                <button className="btn-outline opacity-80 cursor-not-allowed" disabled>Download PDF</button>
               </div>
             </div>
 
