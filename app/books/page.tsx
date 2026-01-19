@@ -11,10 +11,22 @@ export default function BooksPage() {
         async function fetchBooks() {
             try {
                 const res = await fetch('/api/books');
+
+                if (!res.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
                 const data = await res.json();
-                setBooks(data);
+
+                if (Array.isArray(data)) {
+                    setBooks(data);
+                } else {
+                    console.error("API returned invalid data format", data);
+                    setBooks([]);
+                }
             } catch (error) {
                 console.error("Failed to fetch books:", error);
+                setBooks([]);
             } finally {
                 setIsLoading(false);
             }

@@ -11,10 +11,22 @@ export default function MagazinesPage() {
         async function fetchMagazines() {
             try {
                 const res = await fetch('/api/magazines');
+
+                if (!res.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
                 const data = await res.json();
-                setMagazines(data);
+
+                if (Array.isArray(data)) {
+                    setMagazines(data);
+                } else {
+                    console.error("API returned invalid data format", data);
+                    setMagazines([]);
+                }
             } catch (error) {
                 console.error("Failed to fetch magazines:", error);
+                setMagazines([]);
             } finally {
                 setIsLoading(false);
             }

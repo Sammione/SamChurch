@@ -11,10 +11,22 @@ export default function AudioPage() {
         async function fetchSermons() {
             try {
                 const res = await fetch('/api/audio');
+
+                if (!res.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
                 const data = await res.json();
-                setSermons(data);
+
+                if (Array.isArray(data)) {
+                    setSermons(data);
+                } else {
+                    console.error("API returned invalid data format", data);
+                    setSermons([]);
+                }
             } catch (error) {
                 console.error("Failed to fetch sermons:", error);
+                setSermons([]);
             } finally {
                 setIsLoading(false);
             }
