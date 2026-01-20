@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Hero from "./components/Hero";
 import ResourceCards from "./components/ResourceCards";
+import LatestContent from "./components/LatestContent";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -89,66 +90,24 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Latest Teachings Section */}
+      {/* Latest Content Section */}
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Latest Teachings</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Latest Content</h2>
             <p className="text-xl text-text-light max-w-2xl mx-auto">
-              Fresh insights and biblical exposition to strengthen your faith
+              Fresh resources across all categories to strengthen your faith
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "The Power of Scripture in Daily Life",
-                category: "Biblical Living",
-                date: "January 10, 2026",
-                image: "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=2070&auto=format&fit=crop",
-                duration: "45 min"
-              },
-              {
-                title: "Understanding God's Covenant Promises",
-                category: "Theology",
-                date: "January 8, 2026",
-                image: "https://images.unsplash.com/photo-1501084291732-13b1ba8f0ebc?q=80&w=2069&auto=format&fit=crop",
-                duration: "52 min"
-              },
-              {
-                title: "Walking in Truth and Grace",
-                category: "Christian Life",
-                date: "January 5, 2026",
-                image: "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=2071&auto=format&fit=crop",
-                duration: "38 min"
-              }
-            ].map((teaching, i) => (
-              <div key={i} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={teaching.image} alt={teaching.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-secondary text-white text-xs font-semibold rounded-full">
-                    {teaching.category}
-                  </div>
-                  <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs rounded-full">
-                    {teaching.duration}
-                  </div>
-                </div>
-                <div className="p-6 space-y-3">
-                  <p className="text-sm text-text-light">{teaching.date}</p>
-                  <h3 className="text-xl font-serif font-bold group-hover:text-secondary transition-colors">{teaching.title}</h3>
-                  <Link href="/audio" className="text-secondary font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Listen Now
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <LatestContent />
 
           <div className="text-center mt-12">
-            <Link href="/audio" className="btn-outline inline-block">View All Teachings</Link>
+            <div className="flex gap-4 justify-center">
+              <Link href="/magazines" className="btn-outline inline-block">View Magazines</Link>
+              <Link href="/audio" className="btn-outline inline-block">View Audio</Link>
+              <Link href="/books" className="btn-outline inline-block">View Books</Link>
+            </div>
           </div>
         </div>
       </section>
