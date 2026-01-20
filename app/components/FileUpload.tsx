@@ -26,6 +26,7 @@ export default function FileUpload({
     return (
         <CldUploadWidget
             uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "samchurch_uploads"}
+            signatureEndpoint="/api/cloudinary/signature"
             options={{
                 sources: ['local', 'url'],
                 multiple: false,
