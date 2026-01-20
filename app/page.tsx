@@ -99,11 +99,15 @@ export default function Home() {
       </section>
 
       {/* Latest Content Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Latest Content</h2>
-            <p className="text-xl text-text-light max-w-2xl mx-auto">
+      <section className="py-24 bg-gradient-to-b from-background to-white relative">
+        {/* Subtle grid pattern for texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold">Latest Content</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto rounded-full"></div>
+            <p className="text-xl text-text-light max-w-2xl mx-auto font-light">
               Fresh resources across all categories to strengthen your faith
             </p>
           </div>
@@ -112,21 +116,20 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <div className="flex gap-4 justify-center">
-              <Link href="/magazines" className="btn-outline inline-block">View Magazines</Link>
-              <Link href="/audio" className="btn-outline inline-block">View Audio</Link>
-              <Link href="/books" className="btn-outline inline-block">View Books</Link>
+              <Link href="/magazines" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Magazines</Link>
+              <Link href="/audio" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Audio</Link>
+              <Link href="/books" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Books</Link>
             </div>
           </div>
         </div>
       </section>
 
-
       {/* Testimonials Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">A Commitment to the Word</h2>
-            <p className="text-xl text-text-light max-w-2xl mx-auto">
+            <p className="text-xl text-text-light max-w-2xl mx-auto font-light">
               Dedicated to teaching Scripture with clarity and reverence
             </p>
           </div>
