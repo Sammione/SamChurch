@@ -107,14 +107,30 @@ export default function MagazinesPage() {
                                 </p>
 
                                 <div className="pt-6 mt-auto border-t border-gray-50 flex items-center justify-between">
-                                    <button className="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-secondary transition-colors underline-offset-4 hover:underline">
+                                    <button
+                                        onClick={() => mag.pdfUrl && window.open(mag.pdfUrl, '_blank')}
+                                        disabled={!mag.pdfUrl}
+                                        className="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-secondary transition-colors underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
                                         Read Online
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </button>
 
-                                    <button className="p-2 text-gray-400 hover:text-secondary transition-colors" title="Download PDF">
+                                    <button
+                                        onClick={() => {
+                                            if (mag.pdfUrl) {
+                                                const link = document.createElement('a');
+                                                link.href = mag.pdfUrl;
+                                                link.download = `${mag.title}.pdf`;
+                                                link.click();
+                                            }
+                                        }}
+                                        disabled={!mag.pdfUrl}
+                                        className="p-2 text-gray-400 hover:text-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        title="Download PDF"
+                                    >
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>

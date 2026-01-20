@@ -111,7 +111,18 @@ export default function BooksPage() {
                                 </div>
 
                                 <div className="pt-4">
-                                    <button className="btn-primary w-full sm:w-auto text-xs py-3 px-8 flex items-center justify-center gap-2 group/btn">
+                                    <button
+                                        onClick={() => {
+                                            if (book.pdfUrl) {
+                                                const link = document.createElement('a');
+                                                link.href = book.pdfUrl;
+                                                link.download = `${book.title}.pdf`;
+                                                link.click();
+                                            }
+                                        }}
+                                        disabled={!book.pdfUrl}
+                                        className="btn-primary w-full sm:w-auto text-xs py-3 px-8 flex items-center justify-center gap-2 group/btn disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
                                         Download PDF
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover/btn:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

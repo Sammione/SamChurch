@@ -90,7 +90,18 @@ export default function AudioPage() {
                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                         {sermon.duration}
                                     </span>
-                                    <button className="flex items-center gap-1 hover:text-secondary transition-colors">
+                                    <button
+                                        onClick={() => {
+                                            if (sermon.audioUrl) {
+                                                const link = document.createElement('a');
+                                                link.href = sermon.audioUrl;
+                                                link.download = `${sermon.title}.mp3`;
+                                                link.click();
+                                            }
+                                        }}
+                                        disabled={!sermon.audioUrl}
+                                        className="flex items-center gap-1 hover:text-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                         Download
                                     </button>
