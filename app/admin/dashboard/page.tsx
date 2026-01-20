@@ -248,7 +248,84 @@ export default function AdminDashboard() {
             );
         }
 
-        return <div className="p-10 text-center text-gray-400">Section under construction (Settings)</div>;
+        if (activeTab === 'Settings') {
+            return (
+                <div className="max-w-2xl mx-auto">
+                    <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden p-8 space-y-8">
+                        <div>
+                            <h2 className="text-xl font-serif font-bold text-primary mb-2">Profile Settings</h2>
+                            <p className="text-sm text-text-light">Update your admin profile and security credentials.</p>
+                        </div>
+
+                        <form onSubmit={handleProfileUpdate} className="space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Display Name</label>
+                                <input name="name" placeholder="Administrator Name" className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" />
+                            </div>
+
+                            <div className="pt-6 border-t border-gray-100">
+                                <h3 className="text-sm font-bold text-primary mb-4">Change Password</h3>
+                                <div className="space-y-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold uppercase tracking-widest text-gray-500">New Password</label>
+                                        <input type="password" name="newPassword" className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Confirm Password</label>
+                                        <input type="password" name="confirmPassword" className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end gap-3 pt-4">
+                                <button type="submit" disabled={isLoading} className="btn-primary px-8 py-3 text-sm flex items-center gap-2">
+                                    {isLoading ? "Saving..." : "Save Changes"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            );
+        }
+
+        return null; // Fallback
+    };
+
+    // Add inside component
+    const handleProfileUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const form = e.target as HTMLFormElement;
+        const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+        const newPassword = (form.elements.namedItem('newPassword') as HTMLInputElement).value;
+        const confirmPassword = (form.elements.namedItem('confirmPassword') as HTMLInputElement).value;
+
+        if (newPassword && newPassword !== confirmPassword) {
+            alert("Passwords do not match");
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/admin/profile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, newPassword }),
+            });
+
+            if (res.ok) {
+                alert("Profile updated successfully");
+                form.reset();
+            } else {
+                alert("Failed to update profile");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Something went wrong");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
