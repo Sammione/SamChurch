@@ -42,13 +42,43 @@ export default function Home() {
       {/* About / Doctrine Section */}
       <section className="py-24 bg-white border-y border-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1544427928-142ec2698301?q=80&w=2072&auto=format&fit=crop"
-              alt="Scripture Study"
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute inset-0 bg-primary/20"></div>
+          {/* Logo Section with Extraordinary Design */}
+          <div className="relative group">
+            {/* Animated Background Circles */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute w-72 h-72 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
+              <div className="absolute w-96 h-96 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            </div>
+
+            {/* Main Logo Container */}
+            <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-gray-50 to-white border-4 border-secondary/20">
+              {/* Decorative Corner Accents */}
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-secondary rounded-tl-3xl"></div>
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-secondary rounded-br-3xl"></div>
+
+              {/* Logo Image */}
+              <div className="absolute inset-0 flex items-center justify-center p-8">
+                <img
+                  src="/defender-logo.png"
+                  alt="Defender of Truth - Set For the Defence of the Gospel"
+                  className="w-full h-full object-contain drop-shadow-2xl transform group-hover:rotate-3 transition-transform duration-700"
+                />
+              </div>
+
+              {/* Animated Light Rays */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent rotate-45 animate-pulse"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent -rotate-45 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              </div>
+
+              {/* Glowing Border Effect */}
+              <div className="absolute inset-0 rounded-3xl ring-2 ring-secondary/50 ring-offset-4 ring-offset-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+
+            {/* Floating Badge */}
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-full shadow-xl border-4 border-white transform group-hover:scale-110 transition-transform duration-300">
+              <p className="text-sm font-bold uppercase tracking-wider">Phil 1:17</p>
+            </div>
           </div>
 
           <div className="space-y-6">
