@@ -59,8 +59,13 @@ export default function AdminLoginPage() {
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative z-10">
                 <div className="max-w-md w-full space-y-12">
                     <div className="space-y-4">
-                        <Link href="/" className="text-2xl font-serif font-bold text-primary tracking-tighter inline-block">
-                            Defender <span className="text-secondary">of Truth</span>
+                        <Link href="/" className="flex items-center gap-3 group">
+                            <div className="w-12 h-12 bg-primary rounded-xl p-1.5 border border-secondary/20 group-hover:scale-110 transition-transform duration-300">
+                                <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
+                            </div>
+                            <span className="text-2xl font-serif font-bold text-primary tracking-tighter">
+                                Defender <span className="text-secondary">of Truth</span>
+                            </span>
                         </Link>
                         <div className="space-y-1">
                             <h1 className="text-3xl font-serif font-bold text-primary">Portal Access</h1>

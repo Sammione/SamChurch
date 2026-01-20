@@ -33,8 +33,8 @@ export default function Navbar() {
                         <div
                             key={index}
                             className={`flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 text-center absolute left-0 right-0 transition-all duration-1000 ease-in-out ${index === currentMsgIndex
-                                    ? "opacity-100 translate-y-0 scale-100"
-                                    : "opacity-0 translate-y-4 scale-95 pointer-events-none"
+                                ? "opacity-100 translate-y-0 scale-100"
+                                : "opacity-0 translate-y-4 scale-95 pointer-events-none"
                                 }`}
                         >
                             <span className="text-secondary text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] font-serif whitespace-nowrap">
@@ -59,8 +59,13 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/" className="text-2xl font-serif font-bold text-primary tracking-tighter">
-                                DEFENDER<span className="text-secondary"> OF TRUTH </span>
+                            <Link href="/" className="flex items-center gap-3 group">
+                                <div className="relative w-10 h-10 overflow-hidden rounded-lg bg-primary p-1 border border-secondary/30 group-hover:scale-110 transition-transform duration-300">
+                                    <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
+                                </div>
+                                <span className="text-xl md:text-2xl font-serif font-bold text-primary tracking-tighter">
+                                    DEFENDER<span className="text-secondary"> OF TRUTH </span>
+                                </span>
                             </Link>
                         </div>
 

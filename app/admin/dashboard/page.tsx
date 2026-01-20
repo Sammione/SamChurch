@@ -401,10 +401,15 @@ export default function AdminDashboard() {
             {/* Sidebar */}
             <aside className="w-72 bg-primary flex flex-col fixed h-full z-30">
                 <div className="p-8">
-                    <Link href="/" className="text-xl font-serif font-bold text-white tracking-tighter">
-                        Defender <span className="text-secondary">of Truth</span>
-                    </Link>
-                    <div className="mt-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Admin Panel</div>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-white/10 rounded-lg p-1 border border-secondary/20">
+                            <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
+                        </div>
+                        <Link href="/" className="text-xl font-serif font-bold text-white tracking-tighter">
+                            Defender <span className="text-secondary">of Truth</span>
+                        </Link>
+                    </div>
+                    <div className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Admin Panel</div>
                 </div>
 
                 <nav className="flex-grow px-4 space-y-2">

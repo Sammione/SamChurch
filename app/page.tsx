@@ -124,35 +124,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-[#f8fafc]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">A Commitment to the Word</h2>
-            <p className="text-xl text-text-light max-w-2xl mx-auto font-light">
-              Dedicated to teaching Scripture with clarity and reverence
+      {/* Guiding Principles Section */}
+      <section className="py-24 bg-primary text-white relative overflow-hidden">
+        {/* Decorative branding elements */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-secondary/50 to-transparent"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/[0.03] rounded-full blur-[120px]"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">Our Guiding Principles</h2>
+            <div className="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto font-light italic">
+              “Set for the defence of the Gospel”
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
+                title: "Scriptural Authority",
                 quote: "Our teachings are grounded in Scripture, approached with careful study and respect for the Word of God, without personal opinions or modern distortions.",
+                icon: "📜"
               },
               {
+                title: "Clarity & Comprehension",
                 quote: "The aim is clarity and comprehension, helping believers understand what the Bible says, why it says it, and how it applies, rather than relying on emotional experiences.",
+                icon: "💡"
               },
               {
+                title: "Doctrinal Consistency",
                 quote: "All materials are developed with doctrinal consistency, ensuring alignment with biblical principles and faithful interpretation of Scripture.",
+                icon: "⚖️"
               }
-            ].map((testimonial, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-8 space-y-6 border border-gray-100">
-                <div className="text-secondary text-5xl font-serif leading-none">"</div>
-                <p className="text-text-light italic leading-relaxed">{testimonial.quote}</p>
-                <div className="pt-4 border-t border-gray-200">
-                  {/* <p className="font-semibold text-text">{testimonial.author}</p>
-                  <p className="text-sm text-text-light">{testimonial.role}</p> */}
+            ].map((item, i) => (
+              <div key={i} className="group p-8 rounded-[32px] bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-secondary/30 transition-all duration-500 shadow-2xl">
+                <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500">
+                  {item.icon}
                 </div>
+                <h3 className="text-2xl font-serif font-bold text-secondary mb-4">{item.title}</h3>
+                <p className="text-white/80 leading-relaxed font-light italic relative">
+                  <span className="absolute -left-4 -top-2 text-4xl text-secondary/20 font-serif">“</span>
+                  {item.quote}
+                  <span className="inline-block text-4xl text-secondary/20 font-serif translate-y-2 ml-1">”</span>
+                </p>
               </div>
             ))}
           </div>
