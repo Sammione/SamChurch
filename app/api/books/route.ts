@@ -15,11 +15,23 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
+        const { title, author, description, coverUrl, category, price, pages, pdfUrl } = body;
+
         const book = await prisma.book.create({
-            data: body,
+            data: {
+                title,
+                author,
+                description,
+                coverUrl,
+                category,
+                price: price || "Digital Gift",
+                pages,
+                pdfUrl: pdfUrl || null,
+            },
         });
         return NextResponse.json(book);
     } catch (error) {
+        console.error('Book creation error:', error);
         return NextResponse.json({ error: 'Failed to create book' }, { status: 500 });
     }
 }

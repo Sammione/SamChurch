@@ -334,7 +334,7 @@ export default function AdminDashboard() {
             <aside className="w-72 bg-primary flex flex-col fixed h-full z-30">
                 <div className="p-8">
                     <Link href="/" className="text-xl font-serif font-bold text-white tracking-tighter">
-                        TRUTH<span className="text-secondary">DEFENDER</span>
+                        DEFENDER <span className="text-secondary">OF TRUTH</span>
                     </Link>
                     <div className="mt-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Admin Panel</div>
                 </div>

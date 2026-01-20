@@ -15,14 +15,23 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
+        const { title, speaker, duration, series, category, audioUrl, date, description } = body;
+
         const sermon = await prisma.sermon.create({
             data: {
-                ...body,
-                date: new Date(body.date),
+                title,
+                speaker,
+                duration,
+                series,
+                category,
+                audioUrl,
+                date: new Date(date),
+                description: description || null,
             },
         });
         return NextResponse.json(sermon);
     } catch (error) {
+        console.error('Sermon creation error:', error);
         return NextResponse.json({ error: 'Failed to create sermon' }, { status: 500 });
     }
 }
