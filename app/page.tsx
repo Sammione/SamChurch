@@ -98,28 +98,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-24 bg-primary text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-            {[
-              { number: "500+", label: "Audio Messages" },
-              { number: "120+", label: "Magazine Issues" },
-              { number: "50+", label: "Published Books" },
-              { number: "25K+", label: "Lives Impacted" }
-            ].map((stat, i) => (
-              <div key={i} className="space-y-2">
-                <div className="text-4xl md:text-5xl font-bold font-serif text-secondary">{stat.number}</div>
-                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* Latest Content Section */}
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -142,28 +120,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-24 bg-primary text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-secondary rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { number: "500+", label: "Audio Messages" },
-              { number: "120+", label: "Magazine Issues" },
-              { number: "50+", label: "Published Books" },
-              { number: "25K+", label: "Lives Impacted" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold font-serif text-secondary">{stat.number}</div>
-                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-24 bg-white">
