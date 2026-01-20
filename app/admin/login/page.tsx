@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
                 <div className="absolute inset-0 bg-gradient-to-l from-primary/50 to-primary"></div>
                 <div className="h-full flex flex-col items-center justify-center text-center p-20 space-y-8 relative z-10">
                     <div className="space-y-2">
-                        <h2 className="text-5xl font-serif font-bold text-white leading-tight">Truthdefender <span className="text-secondary italic">Admin</span></h2>
+                        <h2 className="text-5xl font-serif font-bold text-white leading-tight">Defender of Truth <span className="text-secondary italic">Admin</span></h2>
                         <p className="text-xl text-gray-400 font-light">Expositing the Word that gives life and truth.</p>
                     </div>
                     <div className="w-24 h-px bg-secondary/30"></div>
@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
                 <div className="max-w-md w-full space-y-12">
                     <div className="space-y-4">
                         <Link href="/" className="text-2xl font-serif font-bold text-primary tracking-tighter inline-block">
-                            TRUTH<span className="text-secondary">DEFENDER</span>
+                            Defender <span className="text-secondary">of Truth</span>
                         </Link>
                         <div className="space-y-1">
                             <h1 className="text-3xl font-serif font-bold text-primary">Portal Access</h1>
