@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import FileUpload from "@/app/components/FileUpload";
 
 interface UploadModalProps {
     isOpen: boolean;
@@ -118,8 +119,8 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                     type="button"
                                     onClick={() => setContentType(type)}
                                     className={`flex-1 py-3 type-button rounded-xl text-sm font-bold transition-all border ${contentType === type
-                                            ? "bg-primary text-white border-primary"
-                                            : "bg-white text-gray-400 border-gray-200 hover:border-primary/50"
+                                        ? "bg-primary text-white border-primary"
+                                        : "bg-white text-gray-400 border-gray-200 hover:border-primary/50"
                                         }`}
                                 >
                                     {type}
@@ -154,11 +155,17 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Cover Image URL</label>
-                                    <input required name="coverUrl" value={formData.coverUrl} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                    <div className="flex gap-2">
+                                        <input required name="coverUrl" value={formData.coverUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, coverUrl: url }))} resourceType="image" label="Upload" />
+                                    </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">PDF URL (Optional)</label>
-                                    <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                    <div className="flex gap-2">
+                                        <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="auto" label="Upload" />
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -183,7 +190,10 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                 </div>
                                 <div className="col-span-2 space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Audio URL</label>
-                                    <input required name="audioUrl" value={formData.audioUrl} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                    <div className="flex gap-2">
+                                        <input required name="audioUrl" value={formData.audioUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, audioUrl: url }))} resourceType="video" label="Upload" />
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -204,11 +214,17 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Cover Image URL</label>
-                                    <input required name="coverUrl" value={formData.coverUrl} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                    <div className="flex gap-2">
+                                        <input required name="coverUrl" value={formData.coverUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, coverUrl: url }))} resourceType="image" label="Upload" />
+                                    </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">PDF URL (Optional)</label>
-                                    <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                    <div className="flex gap-2">
+                                        <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="auto" label="Upload" />
+                                    </div>
                                 </div>
                             </>
                         )}
