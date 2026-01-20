@@ -31,49 +31,225 @@ const sidebarLinks = [
     },
 ];
 
+import UploadModal from "./UploadModal";
+
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState('Overview');
     const [statsData, setStatsData] = useState<any[]>([]);
     const [recentContent, setRecentContent] = useState<any[]>([]);
+    const [allMagazines, setAllMagazines] = useState<any[]>([]);
+    const [allAudio, setAllAudio] = useState<any[]>([]);
+    const [allBooks, setAllBooks] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+    const fetchDashboardData = async () => {
+        setIsLoading(true);
+        try {
+            const [magRes, audioRes, bookRes] = await Promise.all([
+                fetch('/api/magazines'),
+                fetch('/api/audio'),
+                fetch('/api/books')
+            ]);
+
+            const [magazines, audio, books] = await Promise.all([
+                magRes.json(),
+                audioRes.json(),
+                bookRes.json()
+            ]);
+
+            setAllMagazines(Array.isArray(magazines) ? magazines : []);
+            setAllAudio(Array.isArray(audio) ? audio : []);
+            setAllBooks(Array.isArray(books) ? books : []);
+
+            setStatsData([
+                { label: 'Total Magazines', value: Array.isArray(magazines) ? magazines.length : 0, change: '+0 this month', icon: 'bg-blue-50 text-blue-600' },
+                { label: 'Audio Teachings', value: Array.isArray(audio) ? audio.length : 0, change: '+0 this week', icon: 'bg-purple-50 text-purple-600' },
+                { label: 'Digital Books', value: Array.isArray(books) ? books.length : 0, change: '0 change', icon: 'bg-amber-50 text-amber-600' },
+                { label: 'Subscribers', value: '0', change: '+0%', icon: 'bg-emerald-50 text-emerald-600' },
+            ]);
+
+            const combined = [
+                ...(Array.isArray(magazines) ? magazines.map((m: any) => ({ ...m, type: 'Magazine' })) : []),
+                ...(Array.isArray(audio) ? audio.map((a: any) => ({ ...a, type: 'Audio' })) : []),
+                ...(Array.isArray(books) ? books.map((b: any) => ({ ...b, type: 'Book' })) : [])
+            ].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+            setRecentContent(combined.slice(0, 10));
+        } catch (error) {
+            console.error("Dashboard fetch error:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
-        async function fetchDashboardData() {
-            try {
-                const [magRes, audioRes, bookRes] = await Promise.all([
-                    fetch('/api/magazines'),
-                    fetch('/api/audio'),
-                    fetch('/api/books')
-                ]);
-
-                const [magazines, audio, books] = await Promise.all([
-                    magRes.json(),
-                    audioRes.json(),
-                    bookRes.json()
-                ]);
-
-                setStatsData([
-                    { label: 'Total Magazines', value: Array.isArray(magazines) ? magazines.length : 0, change: '+0 this month', icon: 'bg-blue-50 text-blue-600' },
-                    { label: 'Audio Teachings', value: Array.isArray(audio) ? audio.length : 0, change: '+0 this week', icon: 'bg-purple-50 text-purple-600' },
-                    { label: 'Digital Books', value: Array.isArray(books) ? books.length : 0, change: '0 change', icon: 'bg-amber-50 text-amber-600' },
-                    { label: 'Subscribers', value: '0', change: '+0%', icon: 'bg-emerald-50 text-emerald-600' },
-                ]);
-
-                const combined = [
-                    ...(Array.isArray(magazines) ? magazines.map((m: any) => ({ ...m, type: 'Magazine' })) : []),
-                    ...(Array.isArray(audio) ? audio.map((a: any) => ({ ...a, type: 'Audio' })) : []),
-                    ...(Array.isArray(books) ? books.map((b: any) => ({ ...b, type: 'Book' })) : [])
-                ].sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-                setRecentContent(combined.slice(0, 10));
-            } catch (error) {
-                console.error("Dashboard fetch error:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
         fetchDashboardData();
     }, []);
+
+    const renderContent = () => {
+        if (isLoading) {
+            return (
+                <div className="flex items-center justify-center h-64">
+                    <div className="w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            );
+        }
+
+        if (activeTab === 'Overview') {
+            return (
+                <>
+                    {/* Dashboard Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                        {statsData.map((stat) => (
+                            <div key={stat.label} className="bg-white p-6 rounded-3xl border border-gray-50 shadow-sm">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className={`p-3 rounded-2xl ${stat.icon}`}>
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                                    </div>
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="text-sm font-medium text-text-light">{stat.label}</h3>
+                                    <div className="text-3xl font-serif font-bold text-primary">{stat.value}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Recent Content Table */}
+                    <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
+                        <div className="p-8 border-b border-gray-50 flex justify-between items-center">
+                            <h2 className="text-xl font-serif font-bold text-primary">Recent Publications</h2>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead>
+                                    <tr className="bg-gray-50/50">
+                                        <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Content Title</th>
+                                        <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Category</th>
+                                        <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Type</th>
+                                        <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Date Added</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-50">
+                                    {recentContent.map((item, i) => (
+                                        <tr key={i} className="group hover:bg-gray-50/50 transition-colors">
+                                            <td className="px-8 py-5">
+                                                <div className="flex items-center gap-4 text-sm font-bold text-primary">
+                                                    {item.title}
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-5 text-sm text-text-light">{item.category}</td>
+                                            <td className="px-8 py-5">
+                                                <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold uppercase tracking-widest">{item.type}</span>
+                                            </td>
+                                            <td className="px-8 py-5 text-sm text-gray-400">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                        </tr>
+                                    ))}
+                                    {recentContent.length === 0 && (
+                                        <tr>
+                                            <td colSpan={4} className="px-8 py-20 text-center text-gray-400 italic">No content found. Start by uploading some!</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </>
+            );
+        }
+
+        if (activeTab === 'Magazines') {
+            return (
+                <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
+                    <div className="p-8 border-b border-gray-50"><h2 className="text-xl font-serif font-bold text-primary">All Magazines</h2></div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead>
+                                <tr className="bg-gray-50/50">
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Issue</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {allMagazines.map((item, i) => (
+                                    <tr key={i} className="hover:bg-gray-50/50">
+                                        <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.issue}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.category}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {allMagazines.length === 0 && <div className="p-10 text-center text-gray-400">No magazines found.</div>}
+                    </div>
+                </div>
+            );
+        }
+
+        if (activeTab === 'Audio Teachings') {
+            return (
+                <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
+                    <div className="p-8 border-b border-gray-50"><h2 className="text-xl font-serif font-bold text-primary">Audio Library</h2></div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead>
+                                <tr className="bg-gray-50/50">
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Speaker</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Series</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {allAudio.map((item, i) => (
+                                    <tr key={i} className="hover:bg-gray-50/50">
+                                        <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.speaker}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.series}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{new Date(item.date).toLocaleDateString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {allAudio.length === 0 && <div className="p-10 text-center text-gray-400">No audio teachings found.</div>}
+                    </div>
+                </div>
+            );
+        }
+
+        if (activeTab === 'Digital Books') {
+            return (
+                <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
+                    <div className="p-8 border-b border-gray-50"><h2 className="text-xl font-serif font-bold text-primary">All Books</h2></div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead>
+                                <tr className="bg-gray-50/50">
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Author</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {allBooks.map((item, i) => (
+                                    <tr key={i} className="hover:bg-gray-50/50">
+                                        <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.author}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.price}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {allBooks.length === 0 && <div className="p-10 text-center text-gray-400">No books found.</div>}
+                    </div>
+                </div>
+            );
+        }
+
+        return <div className="p-10 text-center text-gray-400">Section under construction (Settings)</div>;
+    };
 
     return (
         <div className="min-h-screen bg-[#f8fafc] flex">
@@ -92,8 +268,8 @@ export default function AdminDashboard() {
                             key={link.name}
                             onClick={() => setActiveTab(link.name)}
                             className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-sm font-medium transition-all ${activeTab === link.name
-                                    ? 'bg-secondary text-primary shadow-lg shadow-secondary/10'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                ? 'bg-secondary text-primary shadow-lg shadow-secondary/10'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
                             {link.icon}
@@ -120,80 +296,24 @@ export default function AdminDashboard() {
                 <header className="flex justify-between items-center mb-10">
                     <div>
                         <h1 className="text-3xl font-serif font-bold text-primary">{activeTab}</h1>
-                        <p className="text-sm text-text-light">Welcome back, here's what's happening today.</p>
+                        <p className="text-sm text-text-light">Manage your content and analytics.</p>
                     </div>
                     <div className="flex items-center gap-4">
-                        <button className="btn-primary py-3 px-6 text-xs flex items-center gap-3">
+                        <button onClick={() => setIsUploadOpen(true)} className="btn-primary py-3 px-6 text-xs flex items-center gap-3">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
                             Upload Content
                         </button>
                     </div>
                 </header>
 
-                {isLoading ? (
-                    <div className="flex items-center justify-center h-64">
-                        <div className="w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                ) : (
-                    <>
-                        {/* Dashboard Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                            {statsData.map((stat) => (
-                                <div key={stat.label} className="bg-white p-6 rounded-3xl border border-gray-50 shadow-sm">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className={`p-3 rounded-2xl ${stat.icon}`}>
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <h3 className="text-sm font-medium text-text-light">{stat.label}</h3>
-                                        <div className="text-3xl font-serif font-bold text-primary">{stat.value}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                {renderContent()}
 
-                        {/* Content Table */}
-                        <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
-                            <div className="p-8 border-b border-gray-50 flex justify-between items-center">
-                                <h2 className="text-xl font-serif font-bold text-primary">Recent Publications</h2>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-left">
-                                    <thead>
-                                        <tr className="bg-gray-50/50">
-                                            <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Content Title</th>
-                                            <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Category</th>
-                                            <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Type</th>
-                                            <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Date Added</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-50">
-                                        {recentContent.map((item, i) => (
-                                            <tr key={i} className="group hover:bg-gray-50/50 transition-colors">
-                                                <td className="px-8 py-5">
-                                                    <div className="flex items-center gap-4 text-sm font-bold text-primary">
-                                                        {item.title}
-                                                    </div>
-                                                </td>
-                                                <td className="px-8 py-5 text-sm text-text-light">{item.category}</td>
-                                                <td className="px-8 py-5">
-                                                    <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold uppercase tracking-widest">{item.type}</span>
-                                                </td>
-                                                <td className="px-8 py-5 text-sm text-gray-400">{new Date(item.createdAt).toLocaleDateString()}</td>
-                                            </tr>
-                                        ))}
-                                        {recentContent.length === 0 && (
-                                            <tr>
-                                                <td colSpan={4} className="px-8 py-20 text-center text-gray-400 italic">No content found. Start by uploading some!</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </>
-                )}
+                <UploadModal
+                    isOpen={isUploadOpen}
+                    onClose={() => setIsUploadOpen(false)}
+                    onSuccess={fetchDashboardData}
+                    defaultType={activeTab}
+                />
             </main>
         </div>
     );
