@@ -170,6 +170,7 @@ export default function AdminDashboard() {
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Issue</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Category</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -178,6 +179,17 @@ export default function AdminDashboard() {
                                         <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{item.issue}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{item.category}</td>
+                                        <td className="px-8 py-5">
+                                            <button
+                                                onClick={() => handleDelete("Magazine", item.id, item.title)}
+                                                className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                                                title="Delete magazine"
+                                            >
+                                                <svg className="w-5 h-5 text-gray-400 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -200,6 +212,7 @@ export default function AdminDashboard() {
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Speaker</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Series</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Date</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -209,6 +222,17 @@ export default function AdminDashboard() {
                                         <td className="px-8 py-5 text-sm text-text-light">{item.speaker}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{item.series}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{new Date(item.date).toLocaleDateString()}</td>
+                                        <td className="px-8 py-5">
+                                            <button
+                                                onClick={() => handleDelete("Audio", item.id, item.title)}
+                                                className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                                                title="Delete audio teaching"
+                                            >
+                                                <svg className="w-5 h-5 text-gray-400 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -230,6 +254,7 @@ export default function AdminDashboard() {
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Author</th>
                                     <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Price</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
@@ -238,6 +263,17 @@ export default function AdminDashboard() {
                                         <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{item.author}</td>
                                         <td className="px-8 py-5 text-sm text-text-light">{item.price}</td>
+                                        <td className="px-8 py-5">
+                                            <button
+                                                onClick={() => handleDelete("Book", item.id, item.title)}
+                                                className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                                                title="Delete book"
+                                            >
+                                                <svg className="w-5 h-5 text-gray-400 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -289,6 +325,38 @@ export default function AdminDashboard() {
         }
 
         return null; // Fallback
+    };
+
+    // Delete handler
+    const handleDelete = async (type: string, id: string, title: string) => {
+        if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+            return;
+        }
+
+        setIsLoading(true);
+        try {
+            let endpoint = "";
+            if (type === "Magazine") endpoint = `/api/magazines/${id}`;
+            else if (type === "Audio") endpoint = `/api/audio/${id}`;
+            else if (type === "Book") endpoint = `/api/books/${id}`;
+
+            const res = await fetch(endpoint, {
+                method: "DELETE",
+            });
+
+            if (res.ok) {
+                alert("Content deleted successfully");
+                fetchDashboardData(); // Refresh the data
+            } else {
+                const data = await res.json();
+                alert(data.error || "Failed to delete content");
+            }
+        } catch (error) {
+            console.error("Delete error:", error);
+            alert("Something went wrong");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     // Add inside component
