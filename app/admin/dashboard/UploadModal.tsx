@@ -192,7 +192,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Audio URL</label>
                                     <div className="flex gap-2">
                                         <input required name="audioUrl" value={formData.audioUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
-                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, audioUrl: url }))} resourceType="video" label="Upload" />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, audioUrl: url }))} resourceType="raw" label="Upload" />
                                     </div>
                                 </div>
                             </>

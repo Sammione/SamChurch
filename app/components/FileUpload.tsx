@@ -12,7 +12,7 @@ interface FileUploadProps {
 
 export default function FileUpload({
     onSuccess,
-    resourceType = "auto",
+    resourceType = "raw",
     label = "Upload File",
     className = ""
 }: FileUploadProps) {
@@ -25,7 +25,7 @@ export default function FileUpload({
 
     return (
         <CldUploadWidget
-            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "samchurch_uploads"}
+            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "churchasset"}
             signatureEndpoint="/api/cloudinary/signature"
             options={{
                 sources: ['local', 'url'],
@@ -33,7 +33,7 @@ export default function FileUpload({
                 resourceType: resourceType,
                 tags: ['public', 'samchurch'],
                 clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp'] : undefined,
-                maxFileSize: resourceType === 'image' ? 10000000 : 50000000, // 10MB image, 50MB others
+                maxFileSize: resourceType === 'image' ? 10000000 : 100000000, // 10MB image, 100MB others
             }}
             onSuccess={handleUpload}
         >
