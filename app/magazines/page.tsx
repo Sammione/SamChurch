@@ -110,12 +110,7 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                let readUrl = mag.pdfUrl;
-                                                // auto-rescue for common Cloudinary 404s on PDFs
-                                                if (readUrl.includes('cloudinary.com') && readUrl.includes('/image/upload/') && readUrl.toLowerCase().endsWith('.pdf')) {
-                                                    readUrl = readUrl.replace('/image/upload/', '/raw/upload/');
-                                                }
-                                                window.open(readUrl, '_blank');
+                                                window.open(mag.pdfUrl, '_blank');
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
@@ -133,12 +128,8 @@ export default function MagazinesPage() {
                                                 let downloadUrl = mag.pdfUrl;
 
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    // auto-rescue resource type
-                                                    if (downloadUrl.includes('/image/upload/') && downloadUrl.toLowerCase().endsWith('.pdf')) {
-                                                        downloadUrl = downloadUrl.replace('/image/upload/', '/raw/upload/');
-                                                    }
-                                                    // apply download transformation if applicable (only for image type but raw is better served as-is)
-                                                    if (downloadUrl.includes('/image/upload/') && !downloadUrl.includes('fl_attachment')) {
+                                                    // Only add fl_attachment if not already present
+                                                    if (!downloadUrl.includes('fl_attachment')) {
                                                         downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
                                                     }
                                                 }

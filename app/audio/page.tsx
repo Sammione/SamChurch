@@ -95,7 +95,6 @@ export default function AudioPage() {
                                             if (sermon.audioUrl) {
                                                 let downloadUrl = sermon.audioUrl;
 
-                                                // Handle Cloudinary robustly
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
                                                     if (!downloadUrl.includes('fl_attachment')) {
                                                         downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');

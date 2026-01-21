@@ -116,12 +116,8 @@ export default function BooksPage() {
                                             if (book.pdfUrl) {
                                                 let downloadUrl = book.pdfUrl;
 
-                                                // auto-rescue for common Cloudinary 404s on PDFs
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    if (downloadUrl.includes('/image/upload/') && downloadUrl.toLowerCase().endsWith('.pdf')) {
-                                                        downloadUrl = downloadUrl.replace('/image/upload/', '/raw/upload/');
-                                                    }
-                                                    if (downloadUrl.includes('/image/upload/') && !downloadUrl.includes('fl_attachment')) {
+                                                    if (!downloadUrl.includes('fl_attachment')) {
                                                         downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
                                                     }
                                                 }
