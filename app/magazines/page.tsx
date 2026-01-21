@@ -108,7 +108,12 @@ export default function MagazinesPage() {
 
                                 <div className="pt-6 mt-auto border-t border-gray-50 flex items-center justify-between">
                                     <button
-                                        onClick={() => mag.pdfUrl && window.open(mag.pdfUrl, '_blank')}
+                                        onClick={() => {
+                                            if (mag.pdfUrl) {
+                                                // Handle potential Cloudinary transformations or raw links
+                                                window.open(mag.pdfUrl, '_blank');
+                                            }
+                                        }}
                                         disabled={!mag.pdfUrl}
                                         className="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-secondary transition-colors underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
@@ -121,10 +126,21 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
+                                                let downloadUrl = mag.pdfUrl;
+
+                                                // If it's a Cloudinary URL, we can force download using fl_attachment
+                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
+                                                    // Ensure we inject fl_attachment for both /image/ and /raw/ uploads
+                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                }
+
                                                 const link = document.createElement('a');
-                                                link.href = mag.pdfUrl;
+                                                link.href = downloadUrl;
                                                 link.download = `${mag.title}.pdf`;
+                                                link.target = "_blank"; // Safety fallback
+                                                document.body.appendChild(link);
                                                 link.click();
+                                                document.body.removeChild(link);
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}

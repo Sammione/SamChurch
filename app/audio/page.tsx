@@ -93,10 +93,20 @@ export default function AudioPage() {
                                     <button
                                         onClick={() => {
                                             if (sermon.audioUrl) {
+                                                let downloadUrl = sermon.audioUrl;
+
+                                                // Handle Cloudinary robustly
+                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
+                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                }
+
                                                 const link = document.createElement('a');
-                                                link.href = sermon.audioUrl;
+                                                link.href = downloadUrl;
                                                 link.download = `${sermon.title}.mp3`;
+                                                link.target = "_blank";
+                                                document.body.appendChild(link);
                                                 link.click();
+                                                document.body.removeChild(link);
                                             }
                                         }}
                                         disabled={!sermon.audioUrl}

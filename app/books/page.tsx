@@ -114,10 +114,20 @@ export default function BooksPage() {
                                     <button
                                         onClick={() => {
                                             if (book.pdfUrl) {
+                                                let downloadUrl = book.pdfUrl;
+
+                                                // Handle Cloudinary robustly
+                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
+                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                }
+
                                                 const link = document.createElement('a');
-                                                link.href = book.pdfUrl;
+                                                link.href = downloadUrl;
                                                 link.download = `${book.title}.pdf`;
+                                                link.target = "_blank";
+                                                document.body.appendChild(link);
                                                 link.click();
+                                                document.body.removeChild(link);
                                             }
                                         }}
                                         disabled={!book.pdfUrl}
