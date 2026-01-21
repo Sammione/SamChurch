@@ -110,7 +110,7 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                window.open(mag.pdfUrl, '_blank');
+                                                window.open(`/api/download?url=${encodeURIComponent(mag.pdfUrl)}`, '_blank');
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
@@ -125,14 +125,7 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                let downloadUrl = mag.pdfUrl;
-
-                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    // Only add fl_attachment if not already present
-                                                    if (!downloadUrl.includes('fl_attachment')) {
-                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
-                                                    }
-                                                }
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(mag.pdfUrl)}`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;

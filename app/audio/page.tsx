@@ -93,13 +93,7 @@ export default function AudioPage() {
                                     <button
                                         onClick={() => {
                                             if (sermon.audioUrl) {
-                                                let downloadUrl = sermon.audioUrl;
-
-                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    if (!downloadUrl.includes('fl_attachment')) {
-                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
-                                                    }
-                                                }
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(sermon.audioUrl)}`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;

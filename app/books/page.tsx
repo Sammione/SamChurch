@@ -114,13 +114,7 @@ export default function BooksPage() {
                                     <button
                                         onClick={() => {
                                             if (book.pdfUrl) {
-                                                let downloadUrl = book.pdfUrl;
-
-                                                if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    if (!downloadUrl.includes('fl_attachment')) {
-                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
-                                                    }
-                                                }
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(book.pdfUrl)}`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;
