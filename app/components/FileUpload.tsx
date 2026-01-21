@@ -31,7 +31,6 @@ export default function FileUpload({
                 sources: ['local', 'url'],
                 multiple: false,
                 resourceType: resourceType,
-                access_mode: 'public', // Force public access for delivery
                 tags: ['public', 'samchurch'],
                 clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp'] : undefined,
                 maxFileSize: resourceType === 'image' ? 10000000 : 50000000, // 10MB image, 50MB others
