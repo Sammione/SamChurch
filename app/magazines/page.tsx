@@ -110,8 +110,12 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                // Handle potential Cloudinary transformations or raw links
-                                                window.open(mag.pdfUrl, '_blank');
+                                                let readUrl = mag.pdfUrl;
+                                                // auto-rescue for common Cloudinary 404s on PDFs
+                                                if (readUrl.includes('cloudinary.com') && readUrl.includes('/image/upload/') && readUrl.toLowerCase().endsWith('.pdf')) {
+                                                    readUrl = readUrl.replace('/image/upload/', '/raw/upload/');
+                                                }
+                                                window.open(readUrl, '_blank');
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
@@ -128,16 +132,21 @@ export default function MagazinesPage() {
                                             if (mag.pdfUrl) {
                                                 let downloadUrl = mag.pdfUrl;
 
-                                                // If it's a Cloudinary URL, we can force download using fl_attachment
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    // Ensure we inject fl_attachment for both /image/ and /raw/ uploads
-                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    // auto-rescue resource type
+                                                    if (downloadUrl.includes('/image/upload/') && downloadUrl.toLowerCase().endsWith('.pdf')) {
+                                                        downloadUrl = downloadUrl.replace('/image/upload/', '/raw/upload/');
+                                                    }
+                                                    // apply download transformation if applicable (only for image type but raw is better served as-is)
+                                                    if (downloadUrl.includes('/image/upload/') && !downloadUrl.includes('fl_attachment')) {
+                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    }
                                                 }
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;
                                                 link.download = `${mag.title}.pdf`;
-                                                link.target = "_blank"; // Safety fallback
+                                                link.target = "_blank";
                                                 document.body.appendChild(link);
                                                 link.click();
                                                 document.body.removeChild(link);

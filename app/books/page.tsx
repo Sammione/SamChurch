@@ -116,9 +116,14 @@ export default function BooksPage() {
                                             if (book.pdfUrl) {
                                                 let downloadUrl = book.pdfUrl;
 
-                                                // Handle Cloudinary robustly
+                                                // auto-rescue for common Cloudinary 404s on PDFs
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    if (downloadUrl.includes('/image/upload/') && downloadUrl.toLowerCase().endsWith('.pdf')) {
+                                                        downloadUrl = downloadUrl.replace('/image/upload/', '/raw/upload/');
+                                                    }
+                                                    if (downloadUrl.includes('/image/upload/') && !downloadUrl.includes('fl_attachment')) {
+                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    }
                                                 }
 
                                                 const link = document.createElement('a');

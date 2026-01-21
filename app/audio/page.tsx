@@ -97,7 +97,9 @@ export default function AudioPage() {
 
                                                 // Handle Cloudinary robustly
                                                 if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
-                                                    downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    if (!downloadUrl.includes('fl_attachment')) {
+                                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                                    }
                                                 }
 
                                                 const link = document.createElement('a');
