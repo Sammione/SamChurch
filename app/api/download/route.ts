@@ -23,45 +23,66 @@ export async function GET(request: NextRequest) {
             return NextResponse.redirect(fileUrl);
         }
 
-        // Extract public ID and resource type from the URL
-        // Example: https://res.cloudinary.com/cloud_name/image/upload/v12345/public_id.pdf
-        const urlParts = fileUrl.split('/');
-        const uploadIndex = urlParts.indexOf('upload');
-
-        if (uploadIndex === -1) {
+        // Check for placeholders in env
+        if (!process.env.CLOUDINARY_API_SECRET || process.env.CLOUDINARY_API_SECRET.includes('...')) {
+            console.error('Cloudinary API Secret is missing or contains placeholder markers.');
             return NextResponse.redirect(fileUrl);
         }
 
-        const resourceType = urlParts[uploadIndex - 1] as 'image' | 'video' | 'raw';
+        // Robust parsing: Everything after 'upload/'
+        const uploadMarker = '/upload/';
+        const uploadPos = fileUrl.indexOf(uploadMarker);
+        if (uploadPos === -1) return NextResponse.redirect(fileUrl);
 
-        // The public ID is everything after the version (v12345) or everything after 'upload' if no version
-        const remainingParts = urlParts.slice(uploadIndex + 1);
+        // Get everything after '/upload/'
+        let pathAfterUpload = fileUrl.substring(uploadPos + uploadMarker.length);
 
-        // Remove version if present (starts with 'v')
-        if (remainingParts[0].startsWith('v') && !isNaN(Number(remainingParts[0].substring(1)))) {
-            remainingParts.shift();
+        // Split by '/' to find transformations and version
+        const parts = pathAfterUpload.split('/');
+
+        // Skip transformations (usually the first part if it doesn't start with 'v' followed by numbers, 
+        // and doesn't look like a real public ID)
+        // AND skip the version (v12345)
+        let startIndex = 0;
+        for (let i = 0; i < parts.length; i++) {
+            const part = parts[i];
+            // If it's a version string (v + digits)
+            if (part.startsWith('v') && /^\d+$/.test(part.substring(1))) {
+                startIndex = i + 1;
+                break;
+            }
+            // If it looks like a transformation (contains '_' or is very short)
+            // This is tricky, but usually the public ID is the LAST part(s)
+            // We'll assume the version is the best anchor.
         }
 
-        // Reconstruct the public ID (might contain folders)
-        let publicId = remainingParts.join('/');
+        // If no version found, we might be looking at the public ID directly or transformations
+        // Cloudinary Public IDs can have folders, but legacy ones might not.
+        let publicIdWithExt = parts.slice(startIndex).join('/');
 
-        // For 'image' resource type (which many PDFs mistakenly are), 
-        // we might need to strip the extension for the publicID
+        // Extract resource type from URL (image, raw, video)
+        const urlParts = fileUrl.split('/');
+        const resourceType = urlParts[urlParts.indexOf('upload') - 1] as any;
+
+        // Separate public ID from extension
+        let publicId = publicIdWithExt;
         if (resourceType === 'image' && publicId.toLowerCase().endsWith('.pdf')) {
             publicId = publicId.substring(0, publicId.lastIndexOf('.'));
         }
 
-        // Generate a signed URL with fl_attachment
+        // User mentioned resources folder. If the publicId doesn't have it, 
+        // we might want to try both, but Cloudinary SDK needs one.
+        // We'll stick to the one extracted from the URL first.
+
         const signedUrl = cloudinary.url(publicId, {
             resource_type: resourceType,
             sign_url: true,
             secure: true,
             flags: 'attachment',
-            // Ensure we use the correct format for images that are actually PDFs
-            format: resourceType === 'image' ? 'pdf' : undefined
+            format: (resourceType === 'image' && publicIdWithExt.toLowerCase().endsWith('.pdf')) ? 'pdf' : undefined
         });
 
-        console.log(`Generated signed URL for ${publicId}:`, signedUrl);
+        console.log(`[Signed Proxy] Parsed PublicID: ${publicId}, ResourceType: ${resourceType}, Target: ${signedUrl}`);
 
         return NextResponse.redirect(signedUrl);
     } catch (error) {
