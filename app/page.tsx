@@ -132,7 +132,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">Our Guiding Principles</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">Standing on the Sure Foundation of God’s Word</h2>
             <div className="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
             <p className="text-xl text-white/70 max-w-2xl mx-auto font-light italic">
               “Set for the defence of the Gospel”
@@ -143,17 +143,17 @@ export default function Home() {
             {[
               {
                 title: "Scriptural Authority",
-                quote: "Our teachings are grounded in Scripture, approached with careful study and respect for the Word of God, without personal opinions or modern distortions.",
+                quote: "“Your word is a lamp to my feet and a light to my path.” — Psalm 119:105",
                 icon: "📜"
               },
               {
-                title: "Clarity & Comprehension",
-                quote: "The aim is clarity and comprehension, helping believers understand what the Bible says, why it says it, and how it applies, rather than relying on emotional experiences.",
+                title: "Persistent Message",
+                quote: "“The grass withers, the flower fades, but the word of our God stands forever.” — Isaiah 40:8",
                 icon: "💡"
               },
               {
-                title: "Doctrinal Consistency",
-                quote: "All materials are developed with doctrinal consistency, ensuring alignment with biblical principles and faithful interpretation of Scripture.",
+                title: "Sanctifying Truth",
+                quote: "“Sanctify them by Your truth.” — John 17:17",
                 icon: "⚖️"
               }
             ].map((item, i) => (
