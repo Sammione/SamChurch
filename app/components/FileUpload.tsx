@@ -34,6 +34,9 @@ export default function FileUpload({
                 resourceType: resourceType,
                 folder: 'resources',
                 tags: ['public', 'samchurch'],
+                useAssetFolderAsPublicIdPrefix: false,
+                useFilename: true,
+                uniqueFilename: false,
                 clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp', 'pdf'] : undefined,
                 maxFileSize: resourceType === 'image' ? 20000000 : 100000000, // 20MB for image/pdf, 100MB others
             }}

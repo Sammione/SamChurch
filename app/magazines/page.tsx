@@ -110,7 +110,7 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                window.open(`/api/download?url=${encodeURIComponent(mag.pdfUrl)}`, '_blank');
+                                                window.open(mag.pdfUrl, '_blank');
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
@@ -125,7 +125,7 @@ export default function MagazinesPage() {
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
-                                                const downloadUrl = `/api/download?url=${encodeURIComponent(mag.pdfUrl)}`;
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(mag.pdfUrl)}&download=true`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;

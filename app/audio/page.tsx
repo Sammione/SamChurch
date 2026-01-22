@@ -93,7 +93,7 @@ export default function AudioPage() {
                                     <button
                                         onClick={() => {
                                             if (sermon.audioUrl) {
-                                                const downloadUrl = `/api/download?url=${encodeURIComponent(sermon.audioUrl)}`;
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(sermon.audioUrl)}&download=true`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;

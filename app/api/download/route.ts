@@ -74,11 +74,16 @@ export async function GET(request: NextRequest) {
         // we might want to try both, but Cloudinary SDK needs one.
         // We'll stick to the one extracted from the URL first.
 
+        // Determine if we should sign the URL (only for non-public assets or special cases)
+        const sign = searchParams.get('sign') === 'true';
+        const isDownload = searchParams.get('download') === 'true';
+
         const signedUrl = cloudinary.url(publicId, {
             resource_type: resourceType,
-            sign_url: true,
+            sign_url: sign,
             secure: true,
-            flags: 'attachment',
+            flags: isDownload ? 'attachment' : undefined,
+            analytics: false,
             format: (resourceType === 'image' && publicIdWithExt.toLowerCase().endsWith('.pdf')) ? 'pdf' : undefined
         });
 

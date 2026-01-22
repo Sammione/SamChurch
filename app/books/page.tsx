@@ -114,7 +114,7 @@ export default function BooksPage() {
                                     <button
                                         onClick={() => {
                                             if (book.pdfUrl) {
-                                                const downloadUrl = `/api/download?url=${encodeURIComponent(book.pdfUrl)}`;
+                                                const downloadUrl = `/api/download?url=${encodeURIComponent(book.pdfUrl)}&download=true`;
 
                                                 const link = document.createElement('a');
                                                 link.href = downloadUrl;
