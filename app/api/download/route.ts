@@ -37,32 +37,38 @@ export async function GET(request: NextRequest) {
         // Get everything after '/upload/'
         let pathAfterUpload = fileUrl.substring(uploadPos + uploadMarker.length);
 
-        // Split by '/' to find transformations and version
+        // Split by '/' to find transformations and public ID
         const parts = pathAfterUpload.split('/');
 
-        // Skip transformations (usually the first part if it doesn't start with 'v' followed by numbers, 
-        // and doesn't look like a real public ID)
-        // AND skip the version (v12345)
+        // Find where the public ID starts by skipping transformations and version
         let startIndex = 0;
         for (let i = 0; i < parts.length; i++) {
             const part = parts[i];
-            // If it's a version string (v + digits)
-            if (part.startsWith('v') && /^\d+$/.test(part.substring(1))) {
+            // Skip transformations: 
+            // - Starts with 's--' (signature)
+            // - Starts with 'fl_' (flags)
+            // - Contains ',' or '=' (common transformation parameters)
+            // - Is a version string (v + digits)
+            const isTransformation = part.startsWith('s--') ||
+                part.startsWith('fl_') ||
+                part.includes(',') ||
+                part.includes('=');
+            const isVersion = part.startsWith('v') && /^\d+$/.test(part.substring(1));
+
+            if (isTransformation || isVersion) {
                 startIndex = i + 1;
+            } else {
+                // First part that isn't a transformation/version is the start of the public ID
                 break;
             }
-            // If it looks like a transformation (contains '_' or is very short)
-            // This is tricky, but usually the public ID is the LAST part(s)
-            // We'll assume the version is the best anchor.
         }
 
-        // If no version found, we might be looking at the public ID directly or transformations
-        // Cloudinary Public IDs can have folders, but legacy ones might not.
         let publicIdWithExt = parts.slice(startIndex).join('/');
 
         // Extract resource type from URL (image, raw, video)
         const urlParts = fileUrl.split('/');
-        const resourceType = urlParts[urlParts.indexOf('upload') - 1] as any;
+        const uploadIdx = urlParts.indexOf('upload');
+        const resourceType = (uploadIdx > 0 ? urlParts[uploadIdx - 1] : 'image') as any;
 
         // Separate public ID from extension
         let publicId = publicIdWithExt;
