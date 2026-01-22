@@ -38,7 +38,6 @@ export default function FileUpload({
     return (
         <CldUploadWidget
             uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "churchasset"}
-            signatureEndpoint="/api/cloudinary/signature"
             options={{
                 sources: ['local', 'url'],
                 multiple: false,
