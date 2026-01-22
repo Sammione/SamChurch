@@ -31,9 +31,10 @@ export default function FileUpload({
                 sources: ['local', 'url'],
                 multiple: false,
                 resourceType: resourceType,
+                folder: 'resources',
                 tags: ['public', 'samchurch'],
-                clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp'] : undefined,
-                maxFileSize: resourceType === 'image' ? 10000000 : 100000000, // 10MB image, 100MB others
+                clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp', 'pdf'] : undefined,
+                maxFileSize: resourceType === 'image' ? 20000000 : 100000000, // 20MB for image/pdf, 100MB others
             }}
             onSuccess={handleUpload}
         >
