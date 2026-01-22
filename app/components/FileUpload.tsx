@@ -19,6 +19,7 @@ export default function FileUpload({
 
     const handleUpload = useCallback((result: any) => {
         if (result.info && result.info.secure_url) {
+            console.log(result.info)
             onSuccess(result.info.secure_url);
         }
     }, [onSuccess]);
