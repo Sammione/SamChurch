@@ -59,12 +59,17 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/" className="flex items-center gap-3 group">
-                                <div className="relative w-10 h-10 overflow-hidden rounded-lg bg-primary p-1 border border-secondary/30 group-hover:scale-110 transition-transform duration-300">
-                                    <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
+                            <Link href="/" className="flex items-center gap-4 group">
+                                <div className="relative w-14 h-14 overflow-hidden rounded-xl bg-primary shadow-lg p-1.5 border border-secondary/40 group-hover:scale-105 transition-all duration-300 group-hover:shadow-secondary/20">
+                                    <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-md" />
                                 </div>
-                                <span className="text-xl md:text-2xl font-serif font-bold text-primary tracking-tighter">
-                                    DEFENDER<span className="text-secondary"> OF TRUTH </span>
+                                <span className="flex flex-col leading-none">
+                                    <span className="text-2xl md:text-3xl font-serif font-black text-primary tracking-tight group-hover:text-primary/90 transition-colors">
+                                        DEFENDER
+                                    </span>
+                                    <span className="text-xs md:text-sm font-bold text-secondary uppercase tracking-[0.25em] ml-0.5">
+                                        OF TRUTH
+                                    </span>
                                 </span>
                             </Link>
                         </div>
