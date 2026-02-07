@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
                 <div className="h-full flex flex-col items-center justify-center text-center p-20 space-y-8 relative z-10">
                     <div className="space-y-2">
                         <h2 className="text-5xl font-serif font-bold text-white leading-tight">Defender of Truth <span className="text-secondary italic">Admin</span></h2>
-                        <p className="text-xl text-gray-400 font-light">Expositing the Word that gives life and truth.</p>
+                        <p className="text-xl text-gray-400 font-light">Set for the Defense of the Gospel.</p>
                     </div>
                     <div className="w-24 h-px bg-secondary/30"></div>
                     <p className="max-w-md text-gray-500 leading-relaxed italic font-light">

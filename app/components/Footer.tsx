@@ -8,7 +8,7 @@ export default function Footer() {
                             DEFENDER <span className="text-secondary">OF TRUTH </span>
                         </h3>
                         <p className="text-gray-400 max-w-xs text-sm leading-relaxed">
-                            Expositing the Word that gives life and truth. Sound doctrine for a firm foundation in Christ.
+                            Set for the Defense of the Gospel. Sound doctrine for a firm foundation in Christ.
                         </p>
                     </div>
 
@@ -33,7 +33,7 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-white/10 text-center text-xs text-gray-500 uppercase tracking-widest">
-                    &copy; {new Date().getFullYear()} Truthdefender Ministries. All rights reserved.
+                    &copy; {new Date().getFullYear()} Defender of Truth. All rights reserved.
                 </div>
             </div>
         </footer>

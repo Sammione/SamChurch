@@ -40,7 +40,7 @@ export default function ResourceCards() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">Be nourished by the Word</h2>
                 <p className="text-text-light max-w-2xl mx-auto text-lg leading-relaxed">
-                    Through sound doctrine, inspired publications, and anointed teachings, believers are strengthened to walk in righteousness.
+                    Through sound doctrine, publications, and teachings, believers are strengthened to walk in righteousness.
                 </p>
             </div>
 

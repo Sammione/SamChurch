@@ -12,20 +12,13 @@ export default function Hero() {
                 <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-[1.1]">
                     The Word that <span className="text-secondary italic">gives life</span> and truth
                 </h1>
-                <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
-                    “The entrance of Your words gives light; it gives understanding to the simple.”
+                <p className="text-base text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light text-justify">
+                    The Defender of Truth website is devoted to the propagation of the gospel of our Lord and Savior Jesus Christ. It is an offshoot of the Defender of Truth magazine which was first published in 1967 under the name Gospel Defender by Ezekiel Afolabi Akinyemi (1932-2020) but was rested in 1973 due to funding constraints. The magazine was revived with the name Defender of Truth under the founding editor in 1981 and was published until it was rested in 1989.
+                    <br /><br />
+                    The magazine which was resuscitated as an e-magazine in January 2021 is devoted to spreading the gospel and edifying Christians. This website will enable readers to download and read all editions of the magazine since its relaunch in January 2021. It also has books, articles, audio, and video sermons that will educate and edify all who make use of the website.
+                    <br /><br />
+                    We hope that the resources on this website will lead you to obey the gospel of Jesus Christ and inherit eternal life.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="btn-primary flex items-center justify-center gap-2 group">
-                        Explore Audio
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </button>
-                    <button className="btn-outline">
-                        Browse Books
-                    </button>
-                </div>
             </div>
 
             {/* Scroll Indicator */}
