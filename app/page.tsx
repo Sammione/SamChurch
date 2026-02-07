@@ -90,10 +90,7 @@ export default function Home() {
               <p>“Understanding grows through careful study of Scripture.”</p>
               <p>“Lives are transformed by the living Word of God.”</p>
             </div>
-            <div className="pt-4">
-              {/* Placeholder for Statement of Faith - could link to a new page in future */}
-              <button className="btn-primary cursor-not-allowed opacity-80" disabled>Our Statement of Faith</button>
-            </div>
+
           </div>
         </div>
       </section>

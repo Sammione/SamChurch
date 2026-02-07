@@ -59,8 +59,8 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/" className="flex items-center gap-4 group">
-                                <div className="relative w-14 h-14 overflow-hidden rounded-xl bg-primary shadow-lg p-1.5 border border-secondary/40 group-hover:scale-105 transition-all duration-300 group-hover:shadow-secondary/20">
+                            <Link href="/" className="flex items-center gap-4 group py-1">
+                                <div className="relative w-16 h-16 overflow-hidden rounded-2xl bg-primary shadow-xl p-1 border-2 border-secondary/20 group-hover:border-secondary/50 group-hover:scale-105 transition-all duration-300 group-hover:shadow-secondary/30">
                                     <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-md" />
                                 </div>
                                 <span className="flex flex-col leading-none">
