@@ -10,7 +10,7 @@ export default function Hero() {
                     The Word of Truth
                 </span>
                 <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-8 leading-[1.1]">
-                    The Word that <span className="text-secondary italic">gives life</span> and truth
+                    Set for the <span className="text-secondary italic">Defense of the Gospel</span>
                 </h1>
                 <p className="text-base text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light text-justify">
                     The Defender of Truth website is devoted to the propagation of the gospel of our Lord and Savior Jesus Christ. It is an offshoot of the Defender of Truth magazine which was first published in 1967 under the name Gospel Defender by Ezekiel Afolabi Akinyemi (1932-2020) but was rested in 1973 due to funding constraints. The magazine was revived with the name Defender of Truth under the founding editor in 1981 and was published until it was rested in 1989.
