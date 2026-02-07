@@ -62,3 +62,15 @@ model Subscriber {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model Archive {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  type        String   // "PDF", "AUDIO", "DOCUMENT"
+  fileUrl     String
+  coverUrl    String?
+  year        String   // Important for archives
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

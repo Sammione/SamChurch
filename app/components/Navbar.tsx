@@ -79,6 +79,7 @@ export default function Navbar() {
                             <Link href="/magazines" className="text-sm font-medium text-text hover:text-secondary transition-colors">Magazines</Link>
                             <Link href="/audio" className="text-sm font-medium text-text hover:text-secondary transition-colors">Audio</Link>
                             <Link href="/books" className="text-sm font-medium text-text hover:text-secondary transition-colors">Books</Link>
+                            <Link href="/archive" className="text-sm font-medium text-text hover:text-secondary transition-colors">Archives</Link>
                             <Link href="/admin/login" className="btn-primary py-2 px-4 text-xs uppercase tracking-widest">
                                 Admin Portal
                             </Link>
@@ -135,6 +136,13 @@ export default function Navbar() {
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Books
+                            </Link>
+                            <Link
+                                href="/archive"
+                                className="text-lg font-medium text-text hover:text-secondary transition-colors"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Archives
                             </Link>
                             <div className="pt-4 border-t border-gray-100">
                                 <Link

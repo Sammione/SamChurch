@@ -29,6 +29,11 @@ const sidebarLinks = [
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
         )
     },
+    {
+        name: 'Archives', icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+        )
+    },
 ];
 
 import UploadModal from "./UploadModal";
@@ -40,33 +45,37 @@ export default function AdminDashboard() {
     const [allMagazines, setAllMagazines] = useState<any[]>([]);
     const [allAudio, setAllAudio] = useState<any[]>([]);
     const [allBooks, setAllBooks] = useState<any[]>([]);
+    const [allArchives, setAllArchives] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isUploadOpen, setIsUploadOpen] = useState(false);
 
     const fetchDashboardData = async () => {
         setIsLoading(true);
         try {
-            const [magRes, audioRes, bookRes] = await Promise.all([
+            const [magRes, audioRes, bookRes, archiveRes] = await Promise.all([
                 fetch('/api/magazines'),
                 fetch('/api/audio'),
-                fetch('/api/books')
+                fetch('/api/books'),
+                fetch('/api/archives')
             ]);
 
-            const [magazines, audio, books] = await Promise.all([
+            const [magazines, audio, books, archives] = await Promise.all([
                 magRes.json(),
                 audioRes.json(),
-                bookRes.json()
+                bookRes.json(),
+                archiveRes.json()
             ]);
 
             setAllMagazines(Array.isArray(magazines) ? magazines : []);
             setAllAudio(Array.isArray(audio) ? audio : []);
             setAllBooks(Array.isArray(books) ? books : []);
+            setAllArchives(Array.isArray(archives) ? archives : []);
 
             setStatsData([
                 { label: 'Total Magazines', value: Array.isArray(magazines) ? magazines.length : 0, change: '+0 this month', icon: 'bg-blue-50 text-blue-600' },
                 { label: 'Audio Teachings', value: Array.isArray(audio) ? audio.length : 0, change: '+0 this week', icon: 'bg-purple-50 text-purple-600' },
                 { label: 'Digital Books', value: Array.isArray(books) ? books.length : 0, change: '0 change', icon: 'bg-amber-50 text-amber-600' },
-                { label: 'Subscribers', value: '0', change: '+0%', icon: 'bg-emerald-50 text-emerald-600' },
+                { label: 'Archives', value: Array.isArray(archives) ? archives.length : 0, change: '+0%', icon: 'bg-gray-50 text-gray-600' },
             ]);
 
             const combined = [
@@ -284,6 +293,49 @@ export default function AdminDashboard() {
             );
         }
 
+        if (activeTab === 'Archives') {
+            return (
+                <div className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden">
+                    <div className="p-8 border-b border-gray-50"><h2 className="text-xl font-serif font-bold text-primary">Archive Library</h2></div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead>
+                                <tr className="bg-gray-50/50">
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Title</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Type</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Year</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Date Added</th>
+                                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-50">
+                                {allArchives.map((item, i) => (
+                                    <tr key={i} className="hover:bg-gray-50/50">
+                                        <td className="px-8 py-5 text-sm font-bold text-primary">{item.title}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.type}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{item.year}</td>
+                                        <td className="px-8 py-5 text-sm text-text-light">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                        <td className="px-8 py-5">
+                                            <button
+                                                onClick={() => handleDelete("Archive", item.id, item.title)}
+                                                className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                                                title="Delete archive"
+                                            >
+                                                <svg className="w-5 h-5 text-gray-400 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {allArchives.length === 0 && <div className="p-10 text-center text-gray-400">No archives found.</div>}
+                    </div>
+                </div>
+            );
+        }
+
         if (activeTab === 'Settings') {
             return (
                 <div className="max-w-2xl mx-auto">
@@ -339,6 +391,7 @@ export default function AdminDashboard() {
             if (type === "Magazine") endpoint = `/api/magazines/${id}`;
             else if (type === "Audio") endpoint = `/api/audio/${id}`;
             else if (type === "Book") endpoint = `/api/books/${id}`;
+            else if (type === "Archive") endpoint = `/api/archives/${id}`;
 
             const res = await fetch(endpoint, {
                 method: "DELETE",

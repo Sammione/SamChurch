@@ -19,13 +19,14 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
     useEffect(() => {
         if (isOpen) {
             // Map "Overview" or "Settings" to "Magazine" default
-            const type = ["Magazine", "Audio Teachings", "Digital Books"].includes(defaultType)
+            const type = ["Magazine", "Audio Teachings", "Digital Books", "Archives"].includes(defaultType)
                 ? defaultType
                 : "Magazine";
 
-            // Convert "Audio Teachings" -> "Audio", "Digital Books" -> "Book"
+            // Convert "Audio Teachings" -> "Audio", "Digital Books" -> "Book", "Archives" -> "Archive"
             if (type === "Audio Teachings") setContentType("Audio");
             else if (type === "Digital Books") setContentType("Book");
+            else if (type === "Archives") setContentType("Archive");
             else setContentType("Magazine");
         }
     }, [isOpen, defaultType]);
@@ -48,6 +49,10 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
         author: "",
         price: "Digital Gift",
         pages: "",
+        // Archive
+        year: new Date().getFullYear().toString(),
+        type: "PDF",
+        fileUrl: "",
     });
 
     if (!isOpen) return null;
@@ -66,6 +71,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
         if (contentType === "Magazine") endpoint = "/api/magazines";
         else if (contentType === "Audio") endpoint = "/api/audio";
         else if (contentType === "Book") endpoint = "/api/books";
+        else if (contentType === "Archive") endpoint = "/api/archives";
 
         try {
             const res = await fetch(endpoint, {
@@ -112,8 +118,8 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
 
                     <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Content Type</label>
-                        <div className="flex gap-4">
-                            {["Magazine", "Audio", "Book"].map((type) => (
+                        <div className="flex gap-4 overflow-x-auto pb-2">
+                            {["Magazine", "Audio", "Book", "Archive"].map((type) => (
                                 <button
                                     key={type}
                                     type="button"
@@ -224,6 +230,37 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                     <div className="flex gap-2">
                                         <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
                                         <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="image" label="Upload" />
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {contentType === "Archive" && (
+                            <>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Archive Type</label>
+                                    <select name="type" value={formData.type} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none">
+                                        <option value="PDF">PDF Document</option>
+                                        <option value="AUDIO">Audio Recording</option>
+                                        <option value="DOCUMENT">Other Document</option>
+                                    </select>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Year</label>
+                                    <input required name="year" value={formData.year} onChange={handleChange} className="w-full px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="e.g. 1985" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-gray-500">File URL</label>
+                                    <div className="flex gap-2">
+                                        <input required name="fileUrl" value={formData.fileUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, fileUrl: url }))} resourceType="auto" label="Upload" />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Cover Image URL (Optional)</label>
+                                    <div className="flex gap-2">
+                                        <input name="coverUrl" value={formData.coverUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, coverUrl: url }))} resourceType="image" label="Upload" />
                                     </div>
                                 </div>
                             </>

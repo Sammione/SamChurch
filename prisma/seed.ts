@@ -16,6 +16,18 @@ async function main() {
         },
     });
 
+    const archive = await prisma.archive.create({
+        data: {
+            title: "The First Edition",
+            description: "A scanned copy of the very first magazine edition from 1980.",
+            type: "PDF",
+            fileUrl: "https://example.com/sample.pdf",
+            year: "1980",
+        },
+    });
+
+    console.log({ admin, archive });
+
     console.log({ admin });
 }
 
