@@ -18,7 +18,6 @@ export default function Footer() {
                             <li><a href="/magazines" className="hover:text-white transition-colors">Magazines</a></li>
                             <li><a href="/audio" className="hover:text-white transition-colors">Audio Teachings</a></li>
                             <li><a href="/books" className="hover:text-white transition-colors">Digital Books</a></li>
-                            <li><a href="/giving" className="hover:text-white transition-colors">Support Our Ministry</a></li>
                         </ul>
                     </div>
 

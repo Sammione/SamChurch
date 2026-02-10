@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 export default function MagazinesPage() {
     const [magazines, setMagazines] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [activeCategory, setActiveCategory] = useState("All");
+
 
     useEffect(() => {
         async function fetchMagazines() {
@@ -34,9 +34,7 @@ export default function MagazinesPage() {
         fetchMagazines();
     }, []);
 
-    const filteredMagazines = activeCategory === "All"
-        ? magazines
-        : magazines.filter(mag => mag.category === activeCategory);
+
 
     return (
         <div className="min-h-screen bg-background pb-32">
@@ -51,29 +49,18 @@ export default function MagazinesPage() {
                     </span>
                     <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">Magazines Library</h1>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Deep dive into our regular publications filled with sound doctrine and inspired messages for the builder of faith.
+                        Dive deep into our regular publications filled with sound doctrine and inspired messages for building of faith.
                     </p>
                 </div>
             </div>
 
             {/* Main Content Area */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
-                {/* Category Filters */}
-                <div className="bg-white p-4 rounded-2xl shadow-xl flex flex-wrap gap-3 items-center justify-center border border-gray-100 mb-12">
-                    {["All", "Theology", "Apologetics", "Devotional", "Teaching", "Life"].map((tag) => (
-                        <button
-                            key={tag}
-                            onClick={() => setActiveCategory(tag)}
-                            className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${activeCategory === tag ? 'bg-secondary text-primary shadow-lg shadow-secondary/20' : 'bg-transparent text-text-light hover:bg-gray-50'}`}
-                        >
-                            {tag}
-                        </button>
-                    ))}
-                </div>
+
 
                 {/* Magazines Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {filteredMagazines.map((mag) => (
+                    {magazines.map((mag) => (
                         <div key={mag.id} className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
                             {/* Cover Image Container */}
                             <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">

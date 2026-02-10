@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 export default function BooksPage() {
     const [books, setBooks] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [activeCategory, setActiveCategory] = useState("All");
+
 
     useEffect(() => {
         async function fetchBooks() {
@@ -34,9 +34,7 @@ export default function BooksPage() {
         fetchBooks();
     }, []);
 
-    const filteredBooks = activeCategory === "All"
-        ? books
-        : books.filter(book => book.category === activeCategory);
+
 
     return (
         <div className="min-h-screen bg-background pb-32">
@@ -57,22 +55,11 @@ export default function BooksPage() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-                {/* Category Filters */}
-                <div className="flex flex-wrap gap-4 mb-12 justify-center">
-                    {["All", "Theology", "Apologetics", "Spiritual Life", "Study Guide"].map((tag) => (
-                        <button
-                            key={tag}
-                            onClick={() => setActiveCategory(tag)}
-                            className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 border ${activeCategory === tag ? 'bg-secondary text-primary border-secondary shadow-lg' : 'bg-white text-text-light border-gray-200 hover:border-secondary hover:text-secondary'}`}
-                        >
-                            {tag}
-                        </button>
-                    ))}
-                </div>
+
 
                 {/* Books Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {filteredBooks.map((book) => (
+                    {books.map((book) => (
                         <div key={book.id} className="flex flex-col sm:flex-row gap-8 items-center sm:items-stretch bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
                             {/* Book Cover */}
                             <div className="w-48 sm:w-56 flex-shrink-0 relative">

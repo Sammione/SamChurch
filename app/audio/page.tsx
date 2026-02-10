@@ -59,16 +59,8 @@ export default function AudioPage() {
                 </div>
             </div>
 
-            {/* Filters & Content */}
+            {/* Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-                <div className="flex flex-wrap gap-4 mb-10 overflow-x-auto pb-2">
-                    {["All", "Theology", "Exhortation", "Teaching", "Apologetics"].map((tag) => (
-                        <button key={tag} className={`px-5 py-2 rounded-full text-sm font-medium transition-colors border ${tag === 'All' ? 'bg-secondary text-primary border-secondary' : 'bg-white border-gray-200 text-text-light hover:border-secondary hover:text-secondary'}`}>
-                            {tag}
-                        </button>
-                    ))}
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {sermons.map((sermon) => (
                         <div key={sermon.id} className="group p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all flex gap-6 items-center">
@@ -117,6 +109,7 @@ export default function AudioPage() {
                 </div>
             </div>
 
+
             {/* Sticky Player Placeholder */}
             <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-2xl-up z-50">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -152,6 +145,6 @@ export default function AudioPage() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
