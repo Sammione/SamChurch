@@ -45,11 +45,11 @@ export default function ArchivePage() {
             <section className="relative bg-primary py-20 overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-                        Ministry <span className="text-secondary">Archives</span>
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 text-center">
+                        <span className="text-secondary">Archives</span>
                     </h1>
                     <p className="text-xl text-gray-300 max-w-2xl mx-auto font-light">
-                        Explore our collection of historical documents, past magazines, and timeless audio teachings.
+                        Explore our collection of historical documents and past magazines.
                     </p>
                 </div>
             </section>
@@ -63,8 +63,8 @@ export default function ArchivePage() {
                                 key={type}
                                 onClick={() => setFilterType(type)}
                                 className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${filterType === type
-                                        ? "bg-primary text-white shadow-md"
-                                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                                    ? "bg-primary text-white shadow-md"
+                                    : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                                     }`}
                             >
                                 {type}
