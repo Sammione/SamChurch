@@ -82,15 +82,12 @@ export default function Home() {
           </div>
 
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold leading-tight">
-              A Foundation Built on <span className="text-secondary">Eternal Truth</span>
-            </h2>
-            <div className="space-y-4 text-text-light text-lg italic leading-relaxed font-light">
-              <p>“Faith is built and hearts are aligned with God’s truth.”</p>
-              <p>“Understanding grows through careful study of Scripture.”</p>
-              <p>“Lives are transformed by the living Word of God.”</p>
+            <div className="space-y-4 text-text-light text-xl italic leading-relaxed font-light">
+              <p>
+                "For I am not ashamed of the gospel of Christ, for it is the power of God to salvation for everyone who believes, for the Jew first and also for the Greek. For in it the righteousness of God is revealed from faith to faith; as it is written, &ldquo;The just shall live by faith.&rdquo;"
+              </p>
+              <p className="not-italic font-bold text-secondary">— Romans 1:16-17</p>
             </div>
-
           </div>
         </div>
       </section>
