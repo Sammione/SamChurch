@@ -55,11 +55,11 @@ export default function MagazinesPage() {
             </div>
 
             {/* Main Content Area */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
 
 
                 {/* Magazines Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {magazines.map((mag) => (
                         <div key={mag.id} className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
                             {/* Cover Image Container */}
@@ -69,8 +69,8 @@ export default function MagazinesPage() {
                                     alt={mag.title}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                                    <button className="w-full btn-primary py-4 text-sm font-bold uppercase tracking-widest">
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+                                    <button className="w-full btn-primary py-2 text-[10px] font-bold uppercase tracking-widest">
                                         Quick Preview
                                     </button>
                                 </div>
@@ -82,14 +82,14 @@ export default function MagazinesPage() {
                             </div>
 
                             {/* Information Section */}
-                            <div className="p-8 space-y-4 flex-grow flex flex-col">
+                            <div className="p-5 space-y-3 flex-grow flex flex-col">
                                 <div>
-                                    <p className="text-secondary font-bold text-xs uppercase tracking-tighter mb-1">{mag.issue}</p>
-                                    <h3 className="text-2xl font-serif font-bold text-primary leading-snug group-hover:text-secondary transition-colors line-clamp-2">
+                                    <p className="text-secondary font-bold text-[10px] uppercase tracking-tighter mb-1">{mag.issue}</p>
+                                    <h3 className="text-lg font-serif font-bold text-primary leading-snug group-hover:text-secondary transition-colors line-clamp-2">
                                         {mag.title}
                                     </h3>
                                 </div>
-                                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
+                                <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">
                                     {mag.description}
                                 </p>
 

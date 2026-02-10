@@ -83,10 +83,10 @@ export default function LatestContent() {
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {content.map((item) => (
                 <div key={item.id} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                    <div className="relative h-40 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                         {item.coverUrl ? (
                             <img
                                 src={item.coverUrl}
@@ -115,7 +115,7 @@ export default function LatestContent() {
                             <span>•</span>
                             <span>{new Date(item.createdAt).toLocaleDateString()}</span>
                         </div>
-                        <h3 className="text-xl font-serif font-bold group-hover:text-secondary transition-colors line-clamp-2">
+                        <h3 className="text-lg font-serif font-bold group-hover:text-secondary transition-colors line-clamp-2">
                             {item.title}
                         </h3>
                         {item.speaker && (

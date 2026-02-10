@@ -58,11 +58,11 @@ export default function BooksPage() {
 
 
                 {/* Books Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {books.map((book) => (
-                        <div key={book.id} className="flex flex-col sm:flex-row gap-8 items-center sm:items-stretch bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                        <div key={book.id} className="flex flex-col sm:flex-row gap-6 items-center sm:items-stretch bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
                             {/* Book Cover */}
-                            <div className="w-48 sm:w-56 flex-shrink-0 relative">
+                            <div className="w-32 sm:w-40 flex-shrink-0 relative">
                                 <div className="aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl relative">
                                     <img
                                         src={book.coverUrl}
@@ -72,20 +72,20 @@ export default function BooksPage() {
                                     <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl"></div>
                                 </div>
                                 {/* Decorative Elements */}
-                                <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg group-hover:rotate-12 transition-transform">
-                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z" /></svg>
+                                <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg group-hover:rotate-12 transition-transform">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z" /></svg>
                                 </div>
                             </div>
 
                             {/* Book Info */}
-                            <div className="flex flex-col justify-center space-y-4">
+                            <div className="flex flex-col justify-center space-y-3">
                                 <div className="space-y-1">
                                     <span className="text-[10px] uppercase tracking-widest text-secondary font-bold">{book.category}</span>
-                                    <h3 className="text-2xl font-serif font-bold text-primary leading-tight group-hover:text-secondary transition-colors">{book.title}</h3>
-                                    <p className="text-sm font-medium text-text-light">By {book.author}</p>
+                                    <h3 className="text-xl font-serif font-bold text-primary leading-tight group-hover:text-secondary transition-colors">{book.title}</h3>
+                                    <p className="text-xs font-medium text-text-light">By {book.author}</p>
                                 </div>
 
-                                <p className="text-gray-500 text-sm leading-relaxed italic line-clamp-3">
+                                <p className="text-gray-500 text-xs leading-relaxed italic line-clamp-2">
                                     "{book.description}"
                                 </p>
 
