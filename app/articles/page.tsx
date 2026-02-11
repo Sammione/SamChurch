@@ -46,10 +46,7 @@ export default function ArticlesPage() {
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 rounded-full blur-2xl -ml-32 -mb-32"></div>
 
                 <div className="max-w-4xl mx-auto space-y-4 relative z-10">
-                    <span className="inline-block px-4 py-1.5 mb-2 text-xs font-semibold tracking-widest text-secondary uppercase border border-secondary/30 rounded-full bg-secondary/10">
-                        Written Wisdom
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">Articles & Blogs</h1>
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">Articles</h1>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                         In-depth articles, theological insights, and practical teachings to strengthen your walk with God.
                     </p>
@@ -68,11 +65,6 @@ export default function ArticlesPage() {
                                     alt={article.title}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
-                                <div className="absolute top-4 left-4">
-                                    <span className="bg-primary/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                                        {article.category}
-                                    </span>
-                                </div>
                             </div>
 
                             {/* Content */}

@@ -102,9 +102,7 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="absolute inset-0 flex flex-col justify-end pb-20 px-4">
                     <div className="max-w-3xl mx-auto w-full text-white space-y-4">
-                        <span className="inline-block px-3 py-1 bg-secondary text-xs uppercase font-bold tracking-widest rounded-full text-primary">
-                            {article.category}
-                        </span>
+
                         <h1 className="text-4xl md:text-5xl font-serif font-bold leading-tight">
                             {article.title}
                         </h1>
