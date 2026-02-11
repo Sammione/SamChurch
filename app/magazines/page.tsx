@@ -49,7 +49,7 @@ export default function MagazinesPage() {
                     </span>
                     <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">Magazines Library</h1>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Dive deep into our regular publications filled with sound doctrine and inspired messages for building of faith.
+                        Dive deep into our regular publications filled with sound doctrine and inspired messages for building faith.
                     </p>
                 </div>
             </div>

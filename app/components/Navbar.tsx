@@ -77,6 +77,7 @@ export default function Navbar() {
                         <div className="hidden md:flex space-x-8 items-center">
                             <Link href="/" className="text-sm font-medium text-text hover:text-secondary transition-colors">Home</Link>
                             <Link href="/magazines" className="text-sm font-medium text-text hover:text-secondary transition-colors">Magazines</Link>
+                            <Link href="/articles" className="text-sm font-medium text-text hover:text-secondary transition-colors">Articles</Link>
                             <Link href="/audio" className="text-sm font-medium text-text hover:text-secondary transition-colors">Audio</Link>
                             <Link href="/books" className="text-sm font-medium text-text hover:text-secondary transition-colors">Books</Link>
                             <Link href="/archive" className="text-sm font-medium text-text hover:text-secondary transition-colors">Archives</Link>
@@ -122,6 +123,13 @@ export default function Navbar() {
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Magazines
+                            </Link>
+                            <Link
+                                href="/articles"
+                                className="text-lg font-medium text-text hover:text-secondary transition-colors"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Articles
                             </Link>
                             <Link
                                 href="/audio"
