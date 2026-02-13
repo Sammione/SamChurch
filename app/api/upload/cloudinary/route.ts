@@ -55,11 +55,15 @@ export async function POST(request: NextRequest) {
         });
 
         // If it's a raw file (PDF, Archive), append fl_attachment to force download
+        // If it's a raw file (PDF, Archive), append fl_attachment to force download with correct filename
         let finalUrl = result.secure_url;
         if (resourceType === 'raw' || result.resource_type === 'raw') {
-            // For raw files, simply adding fl_attachment:name works best or just relying on browser
-            // Usually: /raw/upload/fl_attachment/v1234/filename
-            finalUrl = finalUrl.replace('/upload/', '/upload/fl_attachment/');
+            // Sanitize filename for URL
+            const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+
+            // Force download with specific filename
+            // Using fl_attachment:filename ensures the browser saves it with the correct extension
+            finalUrl = finalUrl.replace('/upload/', `/upload/fl_attachment:${safeName}/`);
         }
 
         return NextResponse.json({
