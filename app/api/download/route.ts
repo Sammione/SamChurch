@@ -19,43 +19,23 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // Fetch the file from the original URL (Cloudinary or elsewhere)
-        const response = await fetch(fileUrl);
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch file: ${response.statusText}`);
+        // If it's not a Cloudinary upload URL or if it's already signed (contains /s--), just redirect
+        // Modifying a signed URL makes it invalid (HTTP 401)
+        if (!fileUrl.includes('cloudinary.com') || !fileUrl.includes('/upload/') || fileUrl.includes('/s--')) {
+            return NextResponse.redirect(fileUrl);
         }
 
-        // Get the filename from the URL or a fallback
-        const urlPath = new URL(fileUrl).pathname;
-        const filename = urlPath.split('/').pop() || 'download.pdf';
-
-        // Create headers for the response
-        const headers = new Headers();
-
-        // Pass through essential headers
-        const contentType = response.headers.get('Content-Type');
-        if (contentType) headers.set('Content-Type', contentType);
-
-        const contentLength = response.headers.get('Content-Length');
-        if (contentLength) headers.set('Content-Length', contentLength);
-
-        // Force download if requested
+        // Only add fl_attachment to non-signed Cloudinary URLs
         if (isDownload) {
-            headers.set('Content-Disposition', `attachment; filename="${filename}"`);
-        } else {
-            headers.set('Content-Disposition', 'inline');
+            const parts = fileUrl.split('/upload/');
+            const downloadUrl = `${parts[0]}/upload/fl_attachment/${parts[1]}`;
+            return NextResponse.redirect(downloadUrl);
         }
 
-        // Stream the response body
-        return new NextResponse(response.body, {
-            status: 200,
-            headers,
-        });
+        return NextResponse.redirect(fileUrl);
 
     } catch (error) {
         console.error('Download error:', error);
-        // Fallback to direct redirect if proxying fails
         return NextResponse.redirect(fileUrl);
     }
 }
