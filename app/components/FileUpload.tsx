@@ -33,6 +33,8 @@ export default function FileUpload({
                 multiple: false,
                 resourceType: resourceType,
                 folder: 'resources',
+                use_filename: true,
+                unique_filename: true,
                 tags: ['public', 'samchurch'],
                 clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp', 'pdf'] : undefined,
                 maxFileSize: resourceType === 'image' ? 20000000 : 100000000, // 20MB for image/pdf, 100MB others
@@ -47,7 +49,7 @@ export default function FileUpload({
                         className={`btn-primary px-4 py-2 text-sm flex items-center gap-2 ${className}`}
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                         </svg>
                         {label}
                     </button>
