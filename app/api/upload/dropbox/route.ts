@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Dropbox } from 'dropbox';
-const dbx = new Dropbox({
-    accessToken: process.env.DROPBOX_ACCESS_TOKEN || undefined,
-    clientId: process.env.DROPBOX_APP_KEY,
-    clientSecret: process.env.DROPBOX_APP_SECRET,
-    refreshToken: process.env.DROPBOX_REFRESH_TOKEN,
-});
-
 export async function POST(request: NextRequest) {
+    // Initialize Dropbox client with explicit fetch inside the handler
+    const dbx = new Dropbox({
+        accessToken: process.env.DROPBOX_ACCESS_TOKEN || undefined,
+        clientId: process.env.DROPBOX_APP_KEY,
+        clientSecret: process.env.DROPBOX_APP_SECRET,
+        refreshToken: process.env.DROPBOX_REFRESH_TOKEN,
+        fetch: fetch,
+    });
+
     try {
         const formData = await request.formData();
         const file = formData.get('file') as File;
