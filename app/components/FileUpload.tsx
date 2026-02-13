@@ -36,8 +36,26 @@ export default function FileUpload({
             });
 
             if (!res.ok) {
-                const error = await res.json();
-                throw new Error(error.error || "Upload failed");
+                let errorMessage = "Upload failed";
+                try {
+                    const errorText = await res.text();
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorMessage = errorJson.error || errorMessage;
+                    } catch {
+                        // If parsing JSON fails, use the text (likely "Request Entity Too Large")
+                        if (errorText.includes("Request Entity Too Large")) {
+                            errorMessage = "File is too large to upload.";
+                        } else if (errorText.length < 200) {
+                            errorMessage = errorText;
+                        } else {
+                            errorMessage = `Upload failed (${res.status}: ${res.statusText})`;
+                        }
+                    }
+                } catch (e) {
+                    errorMessage = `Upload failed (${res.status}: ${res.statusText})`;
+                }
+                throw new Error(errorMessage);
             }
 
             const data = await res.json();
