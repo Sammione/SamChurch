@@ -170,7 +170,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">PDF URL (Optional)</label>
                                     <div className="flex gap-2">
                                         <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
-                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="image" label="Upload" />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="auto" label="Upload" />
                                     </div>
                                 </div>
                             </>
@@ -229,7 +229,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess, defaultType = 
                                     <label className="text-xs font-bold uppercase tracking-widest text-gray-500">PDF URL (Optional)</label>
                                     <div className="flex gap-2">
                                         <input name="pdfUrl" value={formData.pdfUrl} onChange={handleChange} className="flex-1 px-4 py-3 bg-gray-50 rounded-xl border-transparent focus:bg-white focus:border-secondary border-2 transition-all outline-none" placeholder="https://..." />
-                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="image" label="Upload" />
+                                        <FileUpload onSuccess={(url) => setFormData(prev => ({ ...prev, pdfUrl: url }))} resourceType="auto" label="Upload" />
                                     </div>
                                 </div>
                             </>

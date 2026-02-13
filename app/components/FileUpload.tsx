@@ -18,20 +18,10 @@ export default function FileUpload({
 }: FileUploadProps) {
 
     const handleUpload = useCallback((result: any) => {
-        if (result.info && (result.info.secure_url || result.info.public_id)) {
-            console.log('Upload success info:', result.info);
-
-            // Manually construct the cleanest possible public URL
-            const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dgygu2pla';
-            const resourceType = result.info.resource_type || 'image';
-            const publicId = result.info.public_id;
-            const format = result.info.format;
-
-            // Clean URL format: https://res.cloudinary.com/cloudname/resource_type/upload/public_id.format
-            const cleanUrl = `https://res.cloudinary.com/${cloudName}/${resourceType}/upload/${publicId}${format ? '.' + format : ''}`;
-
-            console.log('Constructed Clean URL:', cleanUrl);
-            onSuccess(cleanUrl);
+        if (result.info && result.info.secure_url) {
+            console.log('Upload success:', result.info);
+            // Use the secure_url directly as it's the most reliable and includes versioning for cache busting
+            onSuccess(result.info.secure_url);
         }
     }, [onSuccess]);
 
