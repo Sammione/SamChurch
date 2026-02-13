@@ -28,15 +28,10 @@ export default function FileUpload({
     return (
         <CldUploadWidget
             uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "churchasset"}
-            signatureEndpoint="/api/cloudinary/signature"
             options={{
                 sources: ['local', 'url'],
                 multiple: false,
                 resourceType: resourceType,
-                folder: 'resources',
-                use_filename: true,
-                unique_filename: true,
-                use_asset_folder_as_public_id_prefix: true,
                 tags: ['public', 'samchurch'],
                 clientAllowedFormats: resourceType === 'image' ? ['png', 'jpeg', 'jpg', 'webp', 'pdf'] : undefined,
                 maxFileSize: resourceType === 'image' ? 20000000 : 100000000, // 20MB for image/pdf, 100MB others
