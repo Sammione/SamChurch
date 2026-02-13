@@ -28,9 +28,10 @@ export default function FileUpload({
 
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("resourceType", resourceType || "auto");
 
         try {
-            const res = await fetch("/api/upload/dropbox", {
+            const res = await fetch("/api/upload/cloudinary", {
                 method: "POST",
                 body: formData,
             });
