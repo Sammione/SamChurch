@@ -19,7 +19,9 @@ export async function POST(request: NextRequest) {
         }
 
         const buffer = Buffer.from(await file.arrayBuffer());
-        const path = `/resources/${Date.now()}_${file.name}`;
+        // Sanitize filename to avoid invalid characters
+        const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const path = `/resources/${Date.now()}_${safeName}`;
 
         const response = await dbx.filesUpload({
             path,
@@ -43,9 +45,10 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error: any) {
-        console.error('Dropbox upload error:', error);
+        console.error('Dropbox upload error detail:', JSON.stringify(error, null, 2));
+        const errorMessage = error.error?.error_summary || error.message || 'Failed to upload to Dropbox';
         return NextResponse.json({
-            error: error.message || 'Failed to upload to Dropbox'
+            error: `Dropbox Error: ${errorMessage}`
         }, { status: 500 });
     }
 }
