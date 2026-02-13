@@ -19,17 +19,22 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // If it's not a Cloudinary upload URL or if it's already signed (contains /s--), just redirect
-        // Modifying a signed URL makes it invalid (HTTP 401)
-        if (!fileUrl.includes('cloudinary.com') || !fileUrl.includes('/upload/') || fileUrl.includes('/s--')) {
-            return NextResponse.redirect(fileUrl);
+        // Handle Dropbox URLs
+        if (fileUrl.includes('dropbox.com')) {
+            let dropboxUrl = fileUrl;
+            if (isDownload) {
+                dropboxUrl = dropboxUrl.replace('dl=0', 'dl=1');
+            }
+            return NextResponse.redirect(dropboxUrl);
         }
 
-        // Only add fl_attachment to non-signed Cloudinary URLs
-        if (isDownload) {
-            const parts = fileUrl.split('/upload/');
-            const downloadUrl = `${parts[0]}/upload/fl_attachment/${parts[1]}`;
-            return NextResponse.redirect(downloadUrl);
+        // Handle Cloudinary URLs
+        if (fileUrl.includes('cloudinary.com') && fileUrl.includes('/upload/') && !fileUrl.includes('/s--')) {
+            if (isDownload) {
+                const parts = fileUrl.split('/upload/');
+                const downloadUrl = `${parts[0]}/upload/fl_attachment/${parts[1]}`;
+                return NextResponse.redirect(downloadUrl);
+            }
         }
 
         return NextResponse.redirect(fileUrl);
