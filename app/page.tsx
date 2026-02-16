@@ -169,7 +169,7 @@ export default function Home() {
           {status === "error" && <p className="text-red-400 font-bold">{errorMessage}</p>}
 
           <p className="text-sm text-gray-500 pt-4">
-            Join thousands of believers receiving sound doctrine weekly.
+            Join thousands of believers receiving sound doctrine.
           </p>
         </div>
       </section>
