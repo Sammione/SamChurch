@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
                 <div className="max-w-md w-full space-y-12">
                     <div className="space-y-4">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="w-12 h-12 bg-primary rounded-xl p-1.5 border border-secondary/20 group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-12 h-12 bg-white rounded-xl p-2 border border-secondary/20 group-hover:scale-110 transition-transform duration-300">
                                 <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
                             </div>
                             <span className="text-2xl font-serif font-bold text-primary tracking-tighter">

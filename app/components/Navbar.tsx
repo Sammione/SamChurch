@@ -60,8 +60,8 @@ export default function Navbar() {
                     <div className="flex justify-between h-20 items-center">
                         <div className="flex-shrink-0 flex items-center">
                             <Link href="/" className="flex items-center gap-4 group py-1">
-                                <div className="relative w-16 h-16 overflow-hidden rounded-2xl bg-primary shadow-xl p-1 border-2 border-secondary/20 group-hover:border-secondary/50 group-hover:scale-105 transition-all duration-300 group-hover:shadow-secondary/30">
-                                    <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-md" />
+                                <div className="relative w-16 h-16 overflow-hidden rounded-2xl bg-white shadow-xl p-2 border-2 border-secondary/20 group-hover:border-secondary/50 group-hover:scale-105 transition-all duration-300 group-hover:shadow-secondary/30">
+                                    <img src="/defender-logo.png" alt="Logo" className="w-full h-full object-contain" />
                                 </div>
                                 <span className="flex flex-col leading-none">
                                     <span className="text-2xl md:text-3xl font-serif font-black text-primary tracking-tight group-hover:text-primary/90 transition-colors">
