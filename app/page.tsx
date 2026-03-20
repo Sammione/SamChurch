@@ -40,79 +40,64 @@ export default function Home() {
       <ResourceCards />
 
       {/* About / Doctrine Section */}
-      <section className="py-24 bg-white border-y border-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          {/* Logo Section with Extraordinary Design */}
-          <div className="relative group">
-            {/* Animated Background Circles */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="absolute w-72 h-72 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute w-96 h-96 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <section className="py-12 bg-white border-y border-gray-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Logo Section - Compacted */}
+          <div className="relative group max-w-xs mx-auto md:max-w-none">
+            {/* Animated Background Circles - Scaled down */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute w-40 h-40 bg-gradient-to-br from-secondary/15 to-primary/15 rounded-full blur-2xl animate-pulse"></div>
             </div>
 
-            {/* Main Logo Container */}
-            <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl transform group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-gray-50 to-white border-4 border-secondary/20">
-              {/* Decorative Corner Accents */}
-              <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-secondary rounded-tl-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-secondary rounded-br-3xl"></div>
-
-              {/* Logo Image */}
-              <div className="absolute inset-0 flex items-center justify-center p-8">
+            {/* Main Logo Container - Much Smaller */}
+            <div className="relative aspect-square w-48 md:w-56 mx-auto rounded-3xl overflow-hidden shadow-xl transform group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-gray-50 to-white border-2 border-secondary/10">
+              <div className="absolute inset-0 flex items-center justify-center p-6">
                 <img
                   src="/defender-logo.png"
-                  alt="Defender of Truth - Set For the Defence of the Gospel"
-                  className="w-full h-full object-contain drop-shadow-2xl transform group-hover:rotate-3 transition-transform duration-700"
+                  alt="Logo"
+                  className="w-full h-full object-contain drop-shadow-xl"
                 />
               </div>
 
-              {/* Animated Light Rays */}
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent rotate-45 animate-pulse"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-1 bg-gradient-to-r from-transparent via-secondary to-transparent -rotate-45 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              </div>
-
               {/* Glowing Border Effect */}
-              <div className="absolute inset-0 rounded-3xl ring-2 ring-secondary/50 ring-offset-4 ring-offset-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-secondary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
 
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-full shadow-xl border-4 border-white transform group-hover:scale-110 transition-transform duration-300">
-              <p className="text-sm font-bold uppercase tracking-wider">Phil 1:17</p>
+            {/* Floating Badge - Smaller */}
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1.5 rounded-full shadow-lg border-2 border-white">
+              <p className="text-[10px] font-bold uppercase tracking-widest">Phil 1:17</p>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-4 text-text-light text-xl italic leading-relaxed font-light">
+          <div className="space-y-4">
+            <div className="space-y-3 text-text-light text-base italic leading-relaxed font-light">
               <p>
                 "For I am not ashamed of the gospel of Christ, for it is the power of God to salvation for everyone who believes, for the Jew first and also for the Greek. For in it the righteousness of God is revealed from faith to faith; as it is written, &ldquo;The just shall live by faith.&rdquo;"
               </p>
-              <p className="not-italic font-bold text-secondary">— Romans 1:16-17</p>
+              <p className="not-italic font-bold text-secondary text-sm">— Romans 1:16-17</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Content Section */}
-      <section className="py-24 bg-gradient-to-b from-background to-white relative">
-        {/* Subtle grid pattern for texture */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-
+      {/* Latest Content Section - Compacted */}
+      <section className="py-12 bg-gradient-to-b from-background to-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold">Latest Content</h2>
-            <div className="w-20 h-1 bg-secondary mx-auto rounded-full"></div>
-            <p className="text-xl text-text-light max-w-2xl mx-auto font-light">
-              Fresh resources across all categories to strengthen your faith
+          <div className="text-center mb-10 space-y-2">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold">Latest Content</h2>
+            <div className="w-16 h-1 bg-secondary mx-auto rounded-full"></div>
+            <p className="text-sm text-text-light max-w-2xl mx-auto font-light">
+              Fresh resources to strengthen your faith
             </p>
           </div>
 
           <LatestContent />
 
-          <div className="text-center mt-12">
-            <div className="flex gap-4 justify-center">
-              <Link href="/magazines" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Magazines</Link>
-              <Link href="/audio" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Audio</Link>
-              <Link href="/books" className="btn-outline inline-block px-8 py-4 border-2 shadow-sm hover:shadow-secondary/20">View Books</Link>
+          <div className="text-center mt-8">
+            <div className="flex gap-3 justify-center">
+              <Link href="/magazines" className="btn-outline inline-block px-6 py-2.5 text-xs border-2 shadow-sm">Magazines</Link>
+              <Link href="/audio" className="btn-outline inline-block px-6 py-2.5 text-xs border-2 shadow-sm">Audio</Link>
+              <Link href="/books" className="btn-outline inline-block px-6 py-2.5 text-xs border-2 shadow-sm">Books</Link>
             </div>
           </div>
         </div>
