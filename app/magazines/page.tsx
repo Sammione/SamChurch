@@ -59,41 +59,41 @@ export default function MagazinesPage() {
 
 
                 {/* Magazines Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {magazines.map((mag) => (
-                        <div key={mag.id} className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
+                        <div key={mag.id} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
                             {/* Cover Image Container */}
-                            <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+                            <div className="relative aspect-[3/4] overflow-hidden bg-gray-50 text-[8px]">
                                 <img
                                     src={mag.coverUrl}
                                     alt={mag.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                                    <button className="w-full btn-primary py-2 text-[10px] font-bold uppercase tracking-widest">
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                                    <button className="w-full btn-primary py-1.5 text-[8px] font-bold uppercase tracking-widest rounded-lg">
                                         Quick Preview
                                     </button>
                                 </div>
-                                <div className="absolute top-4 left-4">
-                                    <span className="bg-primary/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                                <div className="absolute top-2 left-2">
+                                    <span className="bg-primary/80 backdrop-blur-md text-white text-[7px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">
                                         {mag.category}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Information Section */}
-                            <div className="p-5 space-y-3 flex-grow flex flex-col">
+                            <div className="p-3 space-y-2 flex-grow flex flex-col">
                                 <div>
-                                    <p className="text-secondary font-bold text-[10px] uppercase tracking-tighter mb-1">{mag.issue}</p>
-                                    <h3 className="text-lg font-serif font-bold text-primary leading-snug group-hover:text-secondary transition-colors line-clamp-2">
+                                    <p className="text-secondary font-bold text-[8px] uppercase tracking-tighter mb-0.5">{mag.issue}</p>
+                                    <h3 className="text-sm font-serif font-bold text-primary leading-tight group-hover:text-secondary transition-colors line-clamp-2">
                                         {mag.title}
                                     </h3>
                                 </div>
-                                <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">
+                                <p className="text-gray-500 text-[10px] leading-tight line-clamp-2">
                                     {mag.description}
                                 </p>
 
-                                <div className="pt-6 mt-auto border-t border-gray-50 flex items-center justify-between">
+                                <div className="pt-3 mt-auto border-t border-gray-50 flex items-center justify-between">
                                     <button
                                         onClick={() => {
                                             if (mag.pdfUrl) {
@@ -101,10 +101,10 @@ export default function MagazinesPage() {
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
-                                        className="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-secondary transition-colors underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="text-primary font-bold text-[8px] uppercase tracking-widest flex items-center gap-1.5 group/btn hover:text-secondary transition-colors underline-offset-4 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        Read Online
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        Read
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </button>
@@ -124,10 +124,10 @@ export default function MagazinesPage() {
                                             }
                                         }}
                                         disabled={!mag.pdfUrl}
-                                        className="p-2 text-gray-400 hover:text-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="p-1 text-gray-400 hover:text-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                         title="Download PDF"
                                     >
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>
                                     </button>

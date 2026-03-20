@@ -83,10 +83,10 @@ export default function LatestContent() {
     };
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {content.map((item) => (
-                <div key={item.id} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                    <div className="relative h-40 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                <div key={item.id} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
+                    <div className="relative h-32 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                         {item.coverUrl ? (
                             <img
                                 src={item.coverUrl}
@@ -94,48 +94,42 @@ export default function LatestContent() {
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-400">
-                                <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
                         )}
-                        <div className={`absolute top-4 left-4 px-3 py-1 ${getTypeColor(item.type)} text-white text-xs font-semibold rounded-full`}>
+                        <div className={`absolute top-2 left-2 px-2 py-0.5 ${getTypeColor(item.type)} text-white text-[8px] font-bold uppercase tracking-widest rounded-full`}>
                             {item.type}
                         </div>
                         {item.duration && (
-                            <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs rounded-full">
+                            <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-white text-[8px] rounded-full">
                                 {item.duration}
                             </div>
                         )}
                     </div>
-                    <div className="p-6 space-y-3">
-                        <div className="flex items-center gap-2 text-xs text-text-light">
-                            <span className="px-2 py-1 bg-gray-100 rounded">{item.category}</span>
+                    <div className="p-3 space-y-1.5 flex-grow flex flex-col">
+                        <div className="flex items-center gap-1.5 text-[9px] text-text-light/70 uppercase tracking-tighter">
+                            <span className="font-bold text-secondary">{item.category}</span>
                             <span>•</span>
-                            <span>{new Date(item.createdAt).toLocaleDateString()}</span>
+                            <span>{new Date(item.createdAt).getFullYear()}</span>
                         </div>
-                        <h3 className="text-lg font-serif font-bold group-hover:text-secondary transition-colors line-clamp-2">
+                        <h3 className="text-xs font-serif font-bold group-hover:text-secondary transition-colors line-clamp-2 leading-tight">
                             {item.title}
                         </h3>
-                        {item.speaker && (
-                            <p className="text-sm text-text-light">Speaker: {item.speaker}</p>
-                        )}
-                        {item.author && (
-                            <p className="text-sm text-text-light">Author: {item.author}</p>
-                        )}
-                        {item.issue && (
-                            <p className="text-sm text-text-light">Issue: {item.issue}</p>
-                        )}
-                        <Link
-                            href={getContentLink(item)}
-                            className="text-secondary font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all"
-                        >
-                            View {item.type}
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </Link>
+                        
+                        <div className="mt-auto pt-2">
+                             <Link
+                                href={getContentLink(item)}
+                                className="text-secondary font-bold text-[9px] uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
+                            >
+                                View {item.type}
+                                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             ))}
